@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondo_app">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="0dp"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="270dp"
+                android:background="@drawable/panel_circular_login"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="164dp"
+                android:fontFamily="@font/poppinsbold"
+                android:text="SOFTWARE"
+                android:textColor="@color/color_letras"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="125dp"
+                android:layout_height="5dp"
+                android:layout_marginTop="265dp"
+                android:background="@color/color_line_selector"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/line_selector" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="230dp"
+                android:layout_height="62dp"
+                android:layout_gravity="center_horizontal|center"
+                android:layout_marginTop="120dp"
+                android:fontFamily="@font/poppinsbold"
+                android:gravity="center"
+                android:text="CORSAN MOBILE"
+                android:textColor="@color/color_letras"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="153dp"
+                android:layout_height="113dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="104dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/shopping_bag"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.162"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="208dp"
+                android:text="Login"
+                android:fontFamily="@font/poppinsbold"
+                android:textColor="@color/color_letras"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <EditText
+            android:id="@+id/txtuser"
+            android:layout_width="343dp"
+            android:drawableStart="@drawable/custom_email_icon"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:drawablePadding="20dp"
+            android:hint="Usuario"
+            android:inputType="textEmailAddress"
+            android:padding="20dp"
+            android:textColor="@color/color_letras"
+            android:textColorHint="@color/color_letras"
+            android:background="@drawable/custom_imput"/>
+
+
+
+        <EditText
+            android:id="@+id/txtpass"
+            android:layout_width="343dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="35dp"
+            android:drawablePadding="20dp"
+            android:hint="Contraseña"
+            android:inputType="textPassword"
+            android:padding="20dp"
+            android:textColor="@color/color_letras"
+            android:textColorHint="@color/color_letras"
+            android:drawableStart="@drawable/custom_lock_icon"
+            android:background="@drawable/custom_imput"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="35dp"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Recuperar Usuario?"
+            android:textColor="@color/color_letras"
+            android:textSize="12dp"
+            android:textStyle="bold" />
+
+
+
+        <Button
+            android:id="@+id/enviar_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/button"
+            android:text="INGRESAR"
+            android:textColor="@color/color_letras" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="COMERCIAL">
+        <menu>
+            <item
+                android:id="@+id/home"
+                android:icon="@drawable/ic_home_black_24dp"
+                android:title="home"/>
+
+            <item
+                android:id="@+id/personas"
+                android:icon="@drawable/ic_group_black_24dp"
+                android:title="Clientes"/>
+            <item
+                android:id="@+id/nav_cartera"
+                android:icon="@drawable/ic_round_money_24"
+                android:title="Cartera"
+                android:iconTint="@color/item_selecionado" />
+            <item
+                android:id="@+id/nav_pedidos"
+                android:icon="@drawable/ic_round_pedido_24"
+                android:title="Pedidos"
+                android:iconTint="@color/item_selecionado" />
+            <item
+                android:id="@+id/nav_recaudo"
+                android:icon="@drawable/ic_round_money_off_24"
+                android:title="Recaudo"
+                android:iconTint="@color/item_selecionado" />
+            <item
+                android:id="@+id/nav_ruta"
+                android:icon="@drawable/ic_round_location_24"
+                android:title="Ruta"
+                android:iconTint="@color/item_selecionado" />
+            <item
+                android:id="@+id/nav_inventario"
+                android:icon="@drawable/ic_round_manage_search_24"
+                android:title="Inventario"
+                android:iconTint="@color/item_selecionado" />
+        </menu>
+    </item>
+    <item android:title="SISTEMA">
+        <menu>
+            <item
+                android:id="@+id/nav_configuracion"
+                android:icon="@drawable/ic_round_settings_24"
+                android:title="Configuracion"
+                android:iconTint="@color/item_selecionado" />
+            <item
+                android:id="@+id/nav_salir"
+                android:icon="@drawable/ic_round_exit_to_app_24"
+                android:title="Salir"
+                android:iconTint="@color/item_selecionado" />
+        </menu>
+    </item>
+</menu>

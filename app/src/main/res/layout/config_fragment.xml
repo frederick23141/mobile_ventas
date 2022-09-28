@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_marginTop="100dp"
+    android:layout_marginLeft="40dp"
+    android:layout_marginRight="40dp">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Descargar"
+        android:fontFamily="@font/poppinspxtrabold"
+        android:textColor="@color/black"
+        android:textSize="18sp"/>
+
+    <Switch
+        android:id="@+id/swusuarios"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="Usuarios"
+        />
+
+    <Switch
+        android:id="@+id/swclientes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="Clientes" />
+
+    <Switch
+        android:id="@+id/swrutas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="Rutas" />
+
+    <Switch
+        android:id="@+id/swmaestroinventario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="Maestro inventario" />
+
+    <Switch
+        android:id="@+id/swcartera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="Cartera" />
+
+    <Switch
+        android:id="@+id/swdetallecartera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="Detalle cartera" />
+
+    <Switch
+        android:id="@+id/swstock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="Stock" />
+
+    <Switch
+        android:id="@+id/swpresupuesto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="Presupuesto" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/poppinspxtrabold"
+        android:text="Enviar"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <Switch
+        android:id="@+id/swclienteenviar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="Clientes" />
+
+    <Switch
+        android:id="@+id/swrutasenviar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="Rutas" />
+
+    <Switch
+        android:id="@+id/swpedidosenviar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="Pedidos" />
+
+    <Button
+        android:id="@+id/btnprocesar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Procesar"
+        android:layout_gravity="center"
+        android:background="@drawable/button"
+        android:layout_marginTop="50dp"
+        />
+</LinearLayout>
