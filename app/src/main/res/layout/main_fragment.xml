@@ -27,7 +27,7 @@
             android:foregroundGravity="center"
             android:paddingLeft="14dp"
             android:paddingRight="14dp"
-            android:src="@drawable/ic_round_person_pin_24"></ImageView>
+            android:src="@drawable/ic_round_money_24"></ImageView>
 
         <LinearLayout
             android:id="@+id/linear_layout"
@@ -46,16 +46,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
-                android:text="nit or tittle"
+                android:text="$ 150.000.000"
                 android:textColor="@color/white"
-                android:textSize="24sp"
+                android:textSize="22sp"
                 android:textStyle="bold"></TextView>
 
             <TextView
                 android:id="@+id/fechanacimiento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="nit or tittle"
+                android:text="Presupuesto"
                 android:textColor="@color/white"
                 android:textSize="18sp"></TextView>
 
@@ -77,14 +77,42 @@
 
     </RelativeLayout>
 
-    <com.jjoe64.graphview.GraphView
-        android:id="@+id/grafica"
-        android:layout_width="359dp"
-        android:layout_height="492dp"
-        android:layout_marginTop="388dp"
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progress"
+        android:layout_width="175dp"
+        android:layout_height="156dp"
+        android:layout_marginTop="45dp"
+        android:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/fondo_circular_progress"/>
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="74 %"
+        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+        app:layout_constraintEnd_toEndOf="@+id/progressBar"
+        app:layout_constraintStart_toStartOf="@+id/progressBar"
+        app:layout_constraintTop_toTopOf="@+id/progressBar"
+        android:fontFamily="@font/poppinspxtrabold"
+        android:textSize="24sp"
+        android:textColor="@color/white"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/grafica"
+            android:layout_width="wrap_content"
+            android:layout_height="492dp"
+            android:layout_marginTop="388dp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

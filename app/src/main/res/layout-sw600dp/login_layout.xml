@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondo_app">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="0dp"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="613dp">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="976dp"
+                android:layout_height="621dp"
+                android:background="@drawable/panel_circular_login"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:fontFamily="@font/poppinsbold"
+                android:text="SOFTWARE"
+                android:textColor="@color/color_letras"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="125dp"
+                android:layout_height="5dp"
+                android:background="@color/color_line_selector"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/line_selector" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="230dp"
+                android:layout_height="62dp"
+                android:layout_gravity="center_horizontal|center"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/poppinsbold"
+                android:gravity="center"
+                android:text="CORSAN MOBILE"
+                android:textColor="@color/color_letras"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="423dp"
+                android:layout_height="334dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="104dp"
+                android:layout_marginTop="48dp"
+                android:src="@drawable/shopping_bag"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.381"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/poppinsbold"
+                android:text="Login"
+                android:textColor="@color/color_letras"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <EditText
+            android:id="@+id/txtuser"
+            android:layout_width="687dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/custom_imput"
+            android:drawableStart="@drawable/custom_email_icon"
+            android:drawablePadding="20dp"
+            android:hint="Usuario"
+            android:inputType="textEmailAddress"
+            android:padding="20dp"
+            android:textColor="@color/color_letras"
+            android:textColorHint="@color/color_letras" />
+
+
+        <EditText
+            android:id="@+id/txtpass"
+            android:layout_width="697dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/custom_imput"
+            android:drawableStart="@drawable/custom_lock_icon"
+            android:drawablePadding="20dp"
+            android:hint="Contraseña"
+            android:inputType="textPassword"
+            android:padding="20dp"
+            android:textColor="@color/color_letras"
+            android:textColorHint="@color/color_letras" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="35dp"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Recuperar Usuario?"
+            android:textColor="@color/color_letras"
+            android:textSize="12dp"
+            android:textStyle="bold" />
+
+
+        <Button
+            android:id="@+id/enviar_button"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="200dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/button"
+            android:fontFamily="@font/poppinspxtrabold"
+            android:text="INGRESAR"
+            android:textAlignment="center"
+            android:textColor="@color/color_letras"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </LinearLayout>
+
+</LinearLayout>
