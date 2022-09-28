@@ -167,7 +167,8 @@ public class MainFragment extends Fragment {
         // enable scrolling
         grafica.getViewport().setScrollable(true);
 
-        grafica.getLegendRenderer().setFixedPosition(150, 0);
+        grafica.getLegendRenderer().setFixedPosition(2, 0);
+        grafica.getLegendRenderer().setTextSize(34);
         grafica.getLegendRenderer().setVisible(true);
 
 

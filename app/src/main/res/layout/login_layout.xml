@@ -154,6 +154,10 @@
             android:layout_marginRight="40dp"
             android:background="@drawable/button"
             android:text="INGRESAR"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:fontFamily="@font/poppinspxtrabold"
             android:textColor="@color/color_letras" />
 
 
