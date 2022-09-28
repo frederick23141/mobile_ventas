@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="backdashboard">#1D213B</color>
-    <color name="backbasboardcard">#212640</color>
+    <color name="backbasboardcard">#16192A</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="fondo_color">#D6001B</color>
