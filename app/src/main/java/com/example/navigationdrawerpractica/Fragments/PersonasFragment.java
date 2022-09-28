@@ -90,7 +90,7 @@ public class PersonasFragment extends Fragment {
 
                 while (set.next()){
                     Toast.makeText(actividad.getApplicationContext(), "Felicidades. encontrado", Toast.LENGTH_SHORT).show();
-                    listaPersonas.add(new Persona(set.getString(1).toString(),set.getString(2).toString(),R.drawable.gohan_cara1));
+                    listaPersonas.add(new Persona(set.getString(1).toString(),set.getString(2).toString(),R.drawable.ic_round_person_pin_24));
                 }
 
 
@@ -108,13 +108,13 @@ public class PersonasFragment extends Fragment {
     }
 
     public void cargarLista(){
-        listaPersonas.add(new Persona("Gohan","31-05-1994",R.drawable.gohan_cara1));
-        listaPersonas.add(new Persona("Goku","31-05-1994",R.drawable.goku_cara2));
-        listaPersonas.add(new Persona("Goten","31-05-1994",R.drawable.goten_cara3));
-        listaPersonas.add(new Persona("Krilin","31-05-1994",R.drawable.krilin_cara4));
-        listaPersonas.add(new Persona("Picoro","31-05-1994",R.drawable.picoro_cara5));
-        listaPersonas.add(new Persona("Trunks","31-05-1994",R.drawable.trunks_cara6));
-        listaPersonas.add(new Persona("Vegueta","31-05-1994",R.drawable.vegueta_cara7));
+        listaPersonas.add(new Persona("Gohan","31-05-1994",R.drawable.ic_round_person_pin_24));
+        listaPersonas.add(new Persona("Goku","31-05-1994",R.drawable.ic_round_person_pin_24));
+        listaPersonas.add(new Persona("Goten","31-05-1994",R.drawable.ic_round_person_pin_24));
+        listaPersonas.add(new Persona("Krilin","31-05-1994",R.drawable.ic_round_person_pin_24));
+        listaPersonas.add(new Persona("Picoro","31-05-1994",R.drawable.ic_round_person_pin_24));
+        listaPersonas.add(new Persona("Trunks","31-05-1994",R.drawable.ic_round_person_pin_24));
+        listaPersonas.add(new Persona("Vegueta","31-05-1994",R.drawable.ic_round_person_pin_24));
     }
     private void mostrarData(){
         recyclerViewPersonas.setLayoutManager(new LinearLayoutManager(getContext()));

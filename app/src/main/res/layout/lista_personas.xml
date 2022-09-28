@@ -49,8 +49,7 @@
                     android:layout_marginBottom="2dp"
                     android:text="nit or tittle"
                     android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold">
+                    android:textSize="18sp">
                 </TextView>
 
                 <TextView
@@ -59,7 +58,9 @@
                     android:layout_height="wrap_content"
                     android:text="nit or tittle"
                     android:textColor="@color/black"
-                    android:textSize="18sp">
+
+                    android:textSize="24sp"
+                    android:textStyle="bold">
                 </TextView>
 
             </LinearLayout>

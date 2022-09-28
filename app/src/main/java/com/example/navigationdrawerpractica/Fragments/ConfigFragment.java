@@ -35,6 +35,8 @@ public class ConfigFragment extends Fragment {
     Switch swsendpedid;
     Button procesar;
 
+    Vendedor vendedor;
+
 
     @Nullable
     @Override
@@ -75,6 +77,10 @@ public class ConfigFragment extends Fragment {
     public void procesar_sincronizacion(){
         if(swuser.isChecked()){
             Toast.makeText(this.getContext(), "Sincronizar usuario", Toast.LENGTH_SHORT).show();
+        }
+
+        if(swclient.isChecked()){
+            Toast.makeText(this.getContext(), "Sincronizar cliente", Toast.LENGTH_SHORT).show();
         }
     }
 
