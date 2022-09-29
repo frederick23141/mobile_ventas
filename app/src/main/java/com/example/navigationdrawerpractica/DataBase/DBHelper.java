@@ -35,9 +35,12 @@ public class DBHelper extends SQLiteOpenHelper {
                 "descuentos text NOT NULL," +
                 "usado text ," +
                 "condicion text NOT NULL," +
-                "lista_precios2 text NOT NULL," +
+                "lista_precios2 text ," +
                 "notas text  )");
 
+        /*Creacion de la tabla clientes para cada vendedor*/
+        db.execSQL("create table presupuestoventas(vendedor text  NOT NULL," +
+                "presupuesto text NOT NULL)");
 
     }
 
