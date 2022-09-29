@@ -81,8 +81,18 @@ public class PersonasFragment extends Fragment {
             //logear en real
             try {
                 Toast.makeText(actividad.getApplicationContext(), "el vendedor es " + vend, Toast.LENGTH_SHORT).show();
+                /*
                 String sqlstatement = "select nit,nombres,direccion,celular,mail,bloqueo,cupo_credito,lista,descuento_fijo,condicion,notas\n" +
                         "from terceros where vendedor = ? ";
+
+                 */
+
+                String sqlstatement = "SELECT         p.nit, p.nombres, p.direccion, p.celular, p.mail, p.bloqueo, p.cupo_credito, p.lista, t.descuento_fijo, t.condicion, t.notas\n" +
+                        "FROM            dbo.PI_clientes AS p INNER JOIN\n" +
+                        "                         dbo.terceros AS t ON p.nit = t.nit\n" +
+                        "WHERE        p.vendedor =  ? ORDER BY p.nombres " ;
+
+
                 PreparedStatement preparedStatement = connection.prepareStatement(sqlstatement);
                 preparedStatement.setString(1, vend);
 
@@ -92,8 +102,6 @@ public class PersonasFragment extends Fragment {
                     Toast.makeText(actividad.getApplicationContext(), "Felicidades. encontrado", Toast.LENGTH_SHORT).show();
                     listaPersonas.add(new Persona(set.getString(1).toString(),set.getString(2).toString(),R.drawable.ic_round_person_pin_24));
                 }
-
-
             } catch (SQLException e) {
                 e.printStackTrace();
             }
