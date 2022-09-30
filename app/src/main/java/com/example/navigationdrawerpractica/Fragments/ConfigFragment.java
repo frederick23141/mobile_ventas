@@ -68,7 +68,9 @@ public class ConfigFragment extends Fragment {
 
         procesar = (Button) view.findViewById(R.id.btnprocesar);
         vendedor = new Vendedor();
-
+        ConSQL c = new ConSQL();
+        Connection connection = c.conclass();
+        vend = vendedor.getVendedor();
 
         procesar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,10 +166,10 @@ public class ConfigFragment extends Fragment {
                 }
         }
 
+        //**** CARGAR EL PRESUPUESTO   ****//
         if(swpresupuest.isChecked()){
             Toast.makeText(this.getContext(), "Sincronizar usuario", Toast.LENGTH_SHORT).show();
             //CREAMOS LA CONEXION A LA BASE DE DATOS REAL, BORRAMOS LA TABLA DE USUARIOS Y AGREGAMOS ESTE NUEVO USUARIO
-
             ConSQL c = new ConSQL();
             Connection connection = c.conclass();
             vend = vendedor.getVendedor();
@@ -201,6 +203,125 @@ public class ConfigFragment extends Fragment {
                         /*llamamos al insert damos el nombre de la base de datos
                          * y los valores*/
                         db.insert("presupuestoventas",null,values);
+                    }
+                    /*cerramos la base de datos*/
+                    db.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                //loguar en local
+                Toast.makeText(this.getContext(), "Error", Toast.LENGTH_SHORT);
+            }
+        }
+
+        //CARGAR LA CARTERA
+        if(swcarter.isChecked()){
+            Toast.makeText(this.getContext(), "Sincronizar CARTERA", Toast.LENGTH_SHORT).show();
+            //CREAMOS LA CONEXION A LA BASE DE DATOS REAL, BORRAMOS LA TABLA DE USUARIOS Y AGREGAMOS ESTE NUEVO USUARIO
+            ConSQL c = new ConSQL();
+            Connection connection = c.conclass();
+            vend = vendedor.getVendedor();
+
+            if(c != null){
+                //logear en real
+                try {
+                    DBHelper admin=new DBHelper(this.getContext(),nombre_DB,null,1);
+                    /*Abrimos la base de datos para escritura*/
+                    SQLiteDatabase db=admin.getWritableDatabase();
+                    /*creamos dos variables string
+                     * inicializamos y convertimos*/
+                    String vendedor;
+                    String presupuesto;
+
+                    String sqlstatement = "SELECT        c.nit,  t.nombres, t.direccion, t.telefono_1 AS telefono,\n" +
+                            "                             (SELECT        TOP (1) DATEDIFF(DAY, vencimiento, GETDATE()) AS d\n" +
+                            "                               FROM            dbo.PI_cartera AS c\n" +
+                            "                               WHERE        (vendedor = ?) and c.nit = t.nit) AS dias, SUM(c.Saldo) AS total\n" +
+                            "FROM            dbo.PI_cartera AS c INNER JOIN\n" +
+                            "                         dbo.terceros AS t ON c.nit = t.nit\n" +
+                            "WHERE        (c.vendedor = ? ) \n" +
+                            "GROUP BY c.nit, t.nombres, t.direccion, t.telefono_1,t.nit\n" +
+                            "order by t.nombres" ;
+
+                    PreparedStatement preparedStatement = connection.prepareStatement(sqlstatement);
+                    preparedStatement.setString(1, vend);
+                    preparedStatement.setString(2, vend);
+
+                    ResultSet set = preparedStatement.executeQuery();
+
+                    while (set.next()){
+                        Toast.makeText(this.getContext(), "insertando", Toast.LENGTH_SHORT).show();
+                        /*Creamos un objeto contentvalues y instanciamos*/
+                        ContentValues values = new ContentValues();
+                        /*capturamos valores*/
+                        values.put("nit",set.getString(1));
+                        values.put("nombres",set.getString(2));
+                        values.put("direccion",set.getString(3));
+                        values.put("telefonos",set.getString(4));
+                        values.put("dias",set.getString(5));
+                        values.put("valor_total",set.getString(6));
+                        /*llamamos al insert damos el nombre de la base de datos
+                         * y los valores*/
+                        db.insert("cartera",null,values);
+                    }
+                    /*cerramos la base de datos*/
+                    db.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                //loguar en local
+                Toast.makeText(this.getContext(), "Error", Toast.LENGTH_SHORT);
+            }
+        }
+
+        //********* CARGAR DETALLE  CARTERA ***//
+        if(swdetallecarter.isChecked()){
+            Toast.makeText(this.getContext(), "Sincronizar detalle CARTERA", Toast.LENGTH_SHORT).show();
+            //CREAMOS LA CONEXION A LA BASE DE DATOS REAL, BORRAMOS LA TABLA DE USUARIOS Y AGREGAMOS ESTE NUEVO USUARIO
+            ConSQL c = new ConSQL();
+            Connection connection = c.conclass();
+            vend = vendedor.getVendedor();
+
+            if(c != null){
+                //logear en real
+                try {
+                    DBHelper admin=new DBHelper(this.getContext(),nombre_DB,null,1);
+                    /*Abrimos la base de datos para escritura*/
+                    SQLiteDatabase db=admin.getWritableDatabase();
+                    /*creamos dos variables string
+                     * inicializamos y convertimos*/
+                    String vendedor;
+                    String presupuesto;
+
+                    String sqlstatement = "SELECT        nit, nombres, direccion, telefono_1, tipo, numero, fecha, vencimiento, Saldo, valor_total, vendedor\n" +
+                            "FROM            dbo.F_V_cartera_mobile\n" +
+                            "WHERE        (vendedor = ?)" ;
+
+                    PreparedStatement preparedStatement = connection.prepareStatement(sqlstatement);
+                    preparedStatement.setString(1, vend);
+
+                    ResultSet set = preparedStatement.executeQuery();
+
+                    while (set.next()){
+                        Toast.makeText(this.getContext(), "insertando", Toast.LENGTH_SHORT).show();
+                        /*Creamos un objeto contentvalues y instanciamos*/
+                        ContentValues values = new ContentValues();
+                        /*capturamos valores*/
+                        values.put("nit",set.getString(1));
+                        values.put("nombres",set.getString(2));
+                        values.put("direccion",set.getString(3));
+                        values.put("telefonos",set.getString(4));
+                        values.put("tipo",set.getString(5));
+                        values.put("numero",set.getString(6));
+                        values.put("fecha",set.getString(7));
+                        values.put("vencimiento",set.getString(8));
+                        values.put("saldo",set.getString(9));
+                        values.put("valor_total",set.getString(10));
+                        /*llamamos al insert damos el nombre de la base de datos
+                         * y los valores*/
+                        db.insert("detallecartera",null,values);
                     }
                     /*cerramos la base de datos*/
                     db.close();

@@ -7,21 +7,20 @@
     android:layout_marginTop="55dp">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="12dp"
         android:id="@+id/txtnombres"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         app:endIconMode="clear_text"
-        app:startIconDrawable="@drawable/ic_round_manage_search_24"
-        app:boxBackgroundMode="outline"
-        android:hint="Buscar">
+        android:hint="Buscar"
+        app:hintTextColor="@color/black">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtnombre"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:textSize="14sp"
             />
 
