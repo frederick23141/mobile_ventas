@@ -42,7 +42,19 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("create table presupuestoventas(vendedor text  NOT NULL," +
                 "presupuesto text NOT NULL)");
 
+        /*Creacion de la tabla cartera para cada vendedor*/
+        db.execSQL("create table cartera(nit text  NOT NULL," +
+                "nombres text NOT NULL," +
+                "direccion text ," +
+                "telefonos text  ," +
+                "tipo text  ," +
+                "numero text NOT NULL," +
+                "fecha text NOT NULL," +
+                "vencimiento text NOT NULL," +
+                "saldo text NOT NULL," +
+                "valor_total text  )");
     }
+
 
 
     /*Este metodo nos ayuda a administrar la versiones de la base de datos creada*/
