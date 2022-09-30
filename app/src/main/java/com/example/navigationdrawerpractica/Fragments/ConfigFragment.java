@@ -42,6 +42,7 @@ public class ConfigFragment extends Fragment {
     Switch swsendclient;
     Switch swsendrut;
     Switch swsendpedid;
+    Switch swventa;
     Button procesar;
 
     Vendedor vendedor;
@@ -65,6 +66,7 @@ public class ConfigFragment extends Fragment {
         swsendclient = (Switch) view.findViewById(R.id.swclienteenviar);
         swsendrut = (Switch) view.findViewById(R.id.swrutasenviar);
         swsendpedid = (Switch) view.findViewById(R.id.swpedidosenviar);
+        swventa = (Switch) view.findViewById(R.id.swventas);
 
         procesar = (Button) view.findViewById(R.id.btnprocesar);
         vendedor = new Vendedor();
@@ -322,6 +324,55 @@ public class ConfigFragment extends Fragment {
                         /*llamamos al insert damos el nombre de la base de datos
                          * y los valores*/
                         db.insert("detallecartera",null,values);
+                    }
+                    /*cerramos la base de datos*/
+                    db.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                //loguar en local
+                Toast.makeText(this.getContext(), "Error", Toast.LENGTH_SHORT);
+            }
+        }
+
+        //**** CARGAR la venta    ****//
+        if(swventa.isChecked()){
+            Toast.makeText(this.getContext(), "Sincronizar venta", Toast.LENGTH_SHORT).show();
+            //CREAMOS LA CONEXION A LA BASE DE DATOS REAL, BORRAMOS LA TABLA DE USUARIOS Y AGREGAMOS ESTE NUEVO USUARIO
+            ConSQL c = new ConSQL();
+            Connection connection = c.conclass();
+            vend = vendedor.getVendedor();
+
+            if(c != null){
+                //logear en real
+                try {
+                    DBHelper admin=new DBHelper(this.getContext(),nombre_DB,null,1);
+                    /*Abrimos la base de datos para escritura*/
+                    SQLiteDatabase db=admin.getWritableDatabase();
+                    /*creamos dos variables string
+                     * inicializamos y convertimos*/
+                    String vendedor;
+                    String presupuesto;
+
+                    String sqlstatement = "SELECT        SUM(Vr_total) AS ventas\n" +
+                            "FROM            dbo.Bi_Auditoria_vtas3\n" +
+                            "WHERE        (vendedor = ? ) AND (Mes = MONTH(GETDATE())) AND (Año = YEAR(GETDATE()))" ;
+
+                    PreparedStatement preparedStatement = connection.prepareStatement(sqlstatement);
+                    preparedStatement.setString(1, vend);
+                    ResultSet set = preparedStatement.executeQuery();
+
+                    while (set.next()){
+                        Toast.makeText(this.getContext(), "insertando", Toast.LENGTH_SHORT).show();
+                        /*Creamos un objeto contentvalues y instanciamos*/
+                        ContentValues values = new ContentValues();
+                        /*capturamos valores*/
+                        values.put("vendedor",vend);
+                        values.put("ventas",set.getString(1));
+                        /*llamamos al insert damos el nombre de la base de datos
+                         * y los valores*/
+                        db.insert("ventasvendedor",null,values);
                     }
                     /*cerramos la base de datos*/
                     db.close();

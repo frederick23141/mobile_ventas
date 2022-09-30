@@ -62,6 +62,13 @@
         android:text="Detalle cartera" />
 
     <Switch
+        android:id="@+id/swventas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="Ventas" />
+
+    <Switch
         android:id="@+id/swstock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
