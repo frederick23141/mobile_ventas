@@ -3,6 +3,8 @@ package com.example.navigationdrawerpractica.Fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigationdrawerpractica.Adaptadores.AdapterPersonas;
 import com.example.navigationdrawerpractica.ConSQL;
+import com.example.navigationdrawerpractica.DataBase.DBHelper;
 import com.example.navigationdrawerpractica.Entidades.Persona;
 import com.example.navigationdrawerpractica.Entidades.Vendedor;
 import com.example.navigationdrawerpractica.Interfaces.MainActivity;
@@ -40,11 +43,12 @@ import java.util.ArrayList;
 public class PersonasFragment extends Fragment {
 
     //private OnFragmentInteractionListener mListener;
-
+    String nombre_DB = "DB_MOBILE";
     Vendedor vendedor;
     AdapterPersonas adapterPersonas;
     RecyclerView recyclerViewPersonas;
     ArrayList<Persona> listaPersonas;
+    ArrayList<String> listainformacion;
     Toolbar toolbar;
 
     //EditText txtnombre;
@@ -53,6 +57,8 @@ public class PersonasFragment extends Fragment {
     //Crear referencias para poder realizar la comunicacion entre el fragment detalle
     Activity actividad;
     iComunicaFragments interfaceComunicaFragments;
+
+    DBHelper conn;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
@@ -64,69 +70,38 @@ public class PersonasFragment extends Fragment {
         toolbar = view.findViewById(R.id.toolbar);
         vendedor = new Vendedor();
         recyclerViewPersonas = view.findViewById(R.id.recyclerView);
+
+
+        conn=new DBHelper(this.getContext(),"userclientes",null,1);
         listaPersonas = new ArrayList<>();
-        cargarBDclientes();
+
+        //cargarBDclientes();
+
+        consultarclientes();
+
         //cargarLista();
         mostrarData();
         return view;
     }
 
-    public void cargarBDclientes(){
-        //CREAMOS LA CONEXION A LA BASE DE DATOS REAL, BORRAMOS LA TABLA DE USUARIOS Y AGREGAMOS ESTE NUEVO USUARIO
+    public void consultarclientes(){
 
-        ConSQL c = new ConSQL();
-        Connection connection = c.conclass();
-        String vend = vendedor.getVendedor();
-        if(c != null){
-            //logear en real
-            try {
-                Toast.makeText(actividad.getApplicationContext(), "el vendedor es " + vend, Toast.LENGTH_SHORT).show();
-                /*
-                String sqlstatement = "select nit,nombres,direccion,celular,mail,bloqueo,cupo_credito,lista,descuento_fijo,condicion,notas\n" +
-                        "from terceros where vendedor = ? ";
+        DBHelper admin=new DBHelper(this.getContext(),nombre_DB,null,1);
+        /*Abrimos la base de datos para escritura*/
+        SQLiteDatabase db=admin.getWritableDatabase();
+        Cursor cursor=db.rawQuery("SELECT * FROM userclientes",null);
 
-                 */
-
-                String sqlstatement = "SELECT         p.nit, p.nombres, p.direccion, p.celular, p.mail, p.bloqueo, p.cupo_credito, p.lista, t.descuento_fijo, t.condicion, t.notas\n" +
-                        "FROM            dbo.PI_clientes AS p INNER JOIN\n" +
-                        "                         dbo.terceros AS t ON p.nit = t.nit\n" +
-                        "WHERE        p.vendedor =  ? ORDER BY p.nombres " ;
-
-
-                PreparedStatement preparedStatement = connection.prepareStatement(sqlstatement);
-                preparedStatement.setString(1, vend);
-
-                ResultSet set = preparedStatement.executeQuery();
-
-                while (set.next()){
-                    Toast.makeText(actividad.getApplicationContext(), "Felicidades. encontrado", Toast.LENGTH_SHORT).show();
-                    listaPersonas.add(new Persona(set.getString(1).toString(),set.getString(2).toString(),R.drawable.ic_round_person_pin_24));
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }else{
-            //loguar en local
-            Toast.makeText(actividad.getApplicationContext(), "Error", Toast.LENGTH_SHORT);
+        while (cursor.moveToNext()){
+            listaPersonas.add(new Persona(cursor.getString(1).toString(),cursor.getString(2).toString(),R.drawable.ic_round_person_pin_24));
         }
-
-
-
-
     }
 
-    public void cargarLista(){
-        listaPersonas.add(new Persona("Gohan","31-05-1994",R.drawable.ic_round_person_pin_24));
-        listaPersonas.add(new Persona("Goku","31-05-1994",R.drawable.ic_round_person_pin_24));
-        listaPersonas.add(new Persona("Goten","31-05-1994",R.drawable.ic_round_person_pin_24));
-        listaPersonas.add(new Persona("Krilin","31-05-1994",R.drawable.ic_round_person_pin_24));
-        listaPersonas.add(new Persona("Picoro","31-05-1994",R.drawable.ic_round_person_pin_24));
-        listaPersonas.add(new Persona("Trunks","31-05-1994",R.drawable.ic_round_person_pin_24));
-        listaPersonas.add(new Persona("Vegueta","31-05-1994",R.drawable.ic_round_person_pin_24));
-    }
+
+
     private void mostrarData(){
         recyclerViewPersonas.setLayoutManager(new LinearLayoutManager(getContext()));
         adapterPersonas = new AdapterPersonas(getContext(), listaPersonas);
+       // adapterPersonas = new AdapterPersonas(getContext(), listainformacion);
         recyclerViewPersonas.setAdapter(adapterPersonas);
 
         adapterPersonas.setOnclickListener(new View.OnClickListener() {
@@ -171,9 +146,5 @@ public class PersonasFragment extends Fragment {
         //mListener = null;
     }
 
-    /*
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }*/
+
 }
