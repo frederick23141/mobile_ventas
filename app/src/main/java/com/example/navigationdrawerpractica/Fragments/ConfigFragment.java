@@ -50,6 +50,8 @@ public class ConfigFragment extends Fragment {
     String nombre_DB = "DB_MOBILE";
     String vend;
 
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -114,6 +116,8 @@ public class ConfigFragment extends Fragment {
                         SQLiteDatabase db=admin.getWritableDatabase();
                         /*creamos dos variables string
                          * inicializamos y convertimos*/
+
+                        db.execSQL("delete from userclientes");
                         String nit;
                         String nombres;
                         String direccion;
@@ -184,12 +188,13 @@ public class ConfigFragment extends Fragment {
                     SQLiteDatabase db=admin.getWritableDatabase();
                     /*creamos dos variables string
                      * inicializamos y convertimos*/
+                    db.execSQL("delete from presupuestoventas");
                     String vendedor;
                     String presupuesto;
 
-                    String sqlstatement = "SELECT        SUM(valor) AS valor\n" +
+                    String sqlstatement = "SELECT        CONVERT(int, ROUND(SUM(valor), 0)) AS valor\n" +
                             "FROM            dbo.presupuesto_ventas\n" +
-                            "WHERE        (vendedor =  ? ) AND (ano = YEAR(GETDATE())) AND (mes = MONTH(GETDATE())) AND (id_definicion = 3)" ;
+                            "WHERE        (vendedor = ? ) AND (ano = YEAR(GETDATE())) AND (mes = MONTH(GETDATE())) AND (id_definicion = 3)" ;
 
                     PreparedStatement preparedStatement = connection.prepareStatement(sqlstatement);
                     preparedStatement.setString(1, vend);
@@ -233,6 +238,7 @@ public class ConfigFragment extends Fragment {
                     SQLiteDatabase db=admin.getWritableDatabase();
                     /*creamos dos variables string
                      * inicializamos y convertimos*/
+                    db.execSQL("delete from cartera");
                     String vendedor;
                     String presupuesto;
 
@@ -292,6 +298,8 @@ public class ConfigFragment extends Fragment {
                     DBHelper admin=new DBHelper(this.getContext(),nombre_DB,null,1);
                     /*Abrimos la base de datos para escritura*/
                     SQLiteDatabase db=admin.getWritableDatabase();
+
+                    db.execSQL("delete from detallecartera");
                     /*creamos dos variables string
                      * inicializamos y convertimos*/
                     String vendedor;
@@ -350,14 +358,19 @@ public class ConfigFragment extends Fragment {
                     DBHelper admin=new DBHelper(this.getContext(),nombre_DB,null,1);
                     /*Abrimos la base de datos para escritura*/
                     SQLiteDatabase db=admin.getWritableDatabase();
+                    /*Borramos la informacion actual*/
+                    db.execSQL("delete from ventasvendedor");
+
                     /*creamos dos variables string
                      * inicializamos y convertimos*/
                     String vendedor;
                     String presupuesto;
 
-                    String sqlstatement = "SELECT        SUM(Vr_total) AS ventas\n" +
+                    String sqlstatement = "SELECT        TOP (100) PERCENT fec, SUM(Vr_total) AS vta_dia\n" +
                             "FROM            dbo.Bi_Auditoria_vtas3\n" +
-                            "WHERE        (vendedor = ? ) AND (Mes = MONTH(GETDATE())) AND (Año = YEAR(GETDATE()))" ;
+                            "WHERE        (vendedor = ? ) AND (Mes = MONTH(GETDATE())) AND (Año = YEAR(GETDATE()))\n" +
+                            "GROUP BY fec\n" +
+                            "ORDER BY fec" ;
 
                     PreparedStatement preparedStatement = connection.prepareStatement(sqlstatement);
                     preparedStatement.setString(1, vend);
@@ -369,7 +382,8 @@ public class ConfigFragment extends Fragment {
                         ContentValues values = new ContentValues();
                         /*capturamos valores*/
                         values.put("vendedor",vend);
-                        values.put("ventas",set.getString(1));
+                        values.put("fecha",set.getString(1));
+                        values.put("ventas",set.getString(2));
                         /*llamamos al insert damos el nombre de la base de datos
                          * y los valores*/
                         db.insert("ventasvendedor",null,values);

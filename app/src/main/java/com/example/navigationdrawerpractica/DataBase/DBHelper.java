@@ -44,6 +44,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         /*Creacion de la tabla clientes para cada vendedor*/
         db.execSQL("create table ventasvendedor(vendedor text  NOT NULL," +
+                "fecha text ," +
                 "ventas text NOT NULL)");
 
         /*Creacion de la tabla detallecartera para cada vendedor*/
