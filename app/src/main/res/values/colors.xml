@@ -16,4 +16,9 @@
     <color name="color_letras">#033471</color>
     <color name="color_line_selector">#FDC27A</color>
     <color name="item_selecionado">#104E5B</color>
+    <color name="green_app">#6CC57C</color>
+    <color name="pink_app">#EE6A6E</color>
+    <color name="back_color_blue_transparent">#F9FAFD</color>
+    <color name="back_color_dark">#253334</color>
+    <color name="back_color_butons_">#7C9A92</color>
 </resources>

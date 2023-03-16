@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Descargar"
+        android:fontFamily="@font/poppinspxtrabold"
+        android:textColor="@color/white"
+        android:textSize="30sp"/>
+
+    <Switch
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:id="@+id/swusuarios"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="Usuarios"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        />
+
+    <Switch
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:id="@+id/swclientes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="Clientes"
+        android:textSize="20dp"
+        android:textColor="@color/white"/>
+
+    <Switch
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:id="@+id/swrutas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="Rutas"
+        android:textSize="20dp"
+        android:textColor="@color/white"/>
+
+    <Switch
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:id="@+id/swmaestroinventario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="Maestro inventario"
+        android:textSize="20dp"
+        android:textColor="@color/white"/>
+
+    <Switch
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:id="@+id/swcartera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="Cartera"
+        android:textSize="20dp"
+        android:textColor="@color/white"/>
+
+    <Switch
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:id="@+id/swdetallecartera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="Detalle cartera"
+        android:textSize="20dp"
+        android:textColor="@color/white"/>
+
+    <Switch
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:id="@+id/swventas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="Ventas"
+        android:textSize="20dp"
+        android:textColor="@color/white"/>
+
+    <Switch
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:id="@+id/swstock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="Stock"
+        android:textSize="20dp"
+        android:textColor="@color/white"/>
+
+    <Switch
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:id="@+id/swpresupuesto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="Presupuesto"
+        android:textSize="20dp"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:fontFamily="@font/poppinspxtrabold"
+        android:text="Enviar"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
+    <Switch
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:id="@+id/swclienteenviar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="Clientes"
+        android:textSize="20dp"
+        android:textColor="@color/white"/>
+
+    <Switch
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:id="@+id/swrutasenviar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="Rutas"
+        android:textSize="20dp"
+        android:textColor="@color/white"/>
+
+    <Switch
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:id="@+id/swpedidosenviar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="Pedidos"
+        android:textSize="20dp"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:id="@+id/btnprocesar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Procesar"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:background="@drawable/button"
+        android:layout_marginTop="50dp"
+        />
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.example.navigationdrawerpractica.Fragments;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -38,6 +39,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class PersonasFragment extends Fragment {
@@ -60,6 +62,7 @@ public class PersonasFragment extends Fragment {
 
     DBHelper conn;
 
+    @SuppressLint("MissingInflatedId")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
     @Override
@@ -90,9 +93,24 @@ public class PersonasFragment extends Fragment {
         /*Abrimos la base de datos para escritura*/
         SQLiteDatabase db=admin.getWritableDatabase();
         Cursor cursor=db.rawQuery("SELECT * FROM userclientes",null);
-
+        String estadob = "t";
         while (cursor.moveToNext()){
-            listaPersonas.add(new Persona(cursor.getString(1).toString(),cursor.getString(2).toString(),R.drawable.ic_round_person_pin_24));
+            try {
+                if(cursor.getString(6).equals("0")){
+                    estadob = "ACTIVO";
+                }
+                if(cursor.getString(6).equals("1")){
+                    estadob = "BLOQUEADO";
+                }
+                if(cursor.getString(6).equals("2")){
+                    estadob = "INACTIVO";
+                }
+
+                listaPersonas.add(new Persona(cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),cursor.getString(5), estadob,cursor.getString(7),cursor.getString(9),cursor.getString(11),cursor.getString(8),cursor.getString(12),cursor.getString(10),cursor.getString(13)));
+            }catch (Exception e){
+                Toast.makeText(getContext(), "Error: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+
         }
     }
 

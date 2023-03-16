@@ -2,7 +2,7 @@ package com.example.navigationdrawerpractica.Entidades;
 
 public class Presupuesto {
 
-    private static  String Presupuesto;
+    private static String Presupuesto;
 
     public String getPresupuesto() {
         return Presupuesto;

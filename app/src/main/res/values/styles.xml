@@ -1,27 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.RTF_DMS_MOBILE" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge" >
 
-        <!-- parent="Theme.AppCompat.DayNight.NoActionBar" -->
-        <!-- Primary brand color. -->
-
-        <!--  <item name="colorPrimaryVariant">@color/purple_700</item> -->
-        <item name="colorOnPrimary">@color/fondo_color_oscuro</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/fondo_app</item>
-        <item name="colorSecondaryVariant">@color/fondo_app</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorOnPrimary</item>
+    <style name="AppThemeDark" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-    </style>
+        <item name="colorPrimary">@color/green_app</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
 
-    <style name="Theme.RTF_DMS_MOBILE.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
+</style>
 
-    <style name="Theme.RTF_DMS_MOBILE.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="Theme.RTF_DMS_MOBILE.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

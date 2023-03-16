@@ -3,6 +3,8 @@ package com.example.navigationdrawerpractica.Entidades;
 public class Vendedor {
 
     private static  String vendedor;
+    private static  String ventas;
+
 
     public String getVendedor() {
         return vendedor;
@@ -18,5 +20,13 @@ public class Vendedor {
 
     public void setVendedor(String vendedor) {
         this.vendedor = vendedor;
+    }
+
+    public static String getVentas() {
+        return ventas;
+    }
+
+    public static void setVentas(String ventas) {
+        Vendedor.ventas = ventas;
     }
 }

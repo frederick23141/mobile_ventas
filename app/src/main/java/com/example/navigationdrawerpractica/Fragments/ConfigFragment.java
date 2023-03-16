@@ -130,7 +130,7 @@ public class ConfigFragment extends Fragment {
                         String condicion;
                         String notas;
 
-                        String sqlstatement = "SELECT   p.nit, p.nombres, p.direccion, p.celular, p.mail, p.bloqueo, p.cupo_credito, p.lista, t.descuento_fijo, t.condicion, t.notas\n" +
+                        String sqlstatement = "SELECT   p.nit, CONCAT(p.nombres, ' - ', p.razon_comercial) as nombres, p.direccion, p.celular, p.mail, p.bloqueo, p.cupo_credito, p.lista, t.descuento_fijo, t.condicion, t.notas\n" +
                                 "FROM            dbo.PI_clientes AS p INNER JOIN\n" +
                                 "                         dbo.terceros AS t ON p.nit = t.nit\n" +
                                 "WHERE        p.vendedor =  ? ORDER BY p.nombres " ;
@@ -360,6 +360,7 @@ public class ConfigFragment extends Fragment {
                     SQLiteDatabase db=admin.getWritableDatabase();
                     /*Borramos la informacion actual*/
                     db.execSQL("delete from ventasvendedor");
+                    db.execSQL("delete from ventastot");
 
                     /*creamos dos variables string
                      * inicializamos y convertimos*/
@@ -381,13 +382,17 @@ public class ConfigFragment extends Fragment {
                         /*Creamos un objeto contentvalues y instanciamos*/
                         ContentValues values = new ContentValues();
                         /*capturamos valores*/
-                        values.put("vendedor",vend);
+                        values.put("vendedor",vend.toString());
                         values.put("fecha",set.getString(1));
                         values.put("ventas",set.getString(2));
+
                         /*llamamos al insert damos el nombre de la base de datos
                          * y los valores*/
                         db.insert("ventasvendedor",null,values);
                     }
+
+                    cargarsumaventa();
+
                     /*cerramos la base de datos*/
                     db.close();
                 } catch (SQLException e) {
@@ -398,6 +403,62 @@ public class ConfigFragment extends Fragment {
                 Toast.makeText(this.getContext(), "Error", Toast.LENGTH_SHORT);
             }
         }
-    }
 
+
+    }
+    public void cargarsumaventa(){
+        Toast.makeText(this.getContext(), "Sincronizar venta", Toast.LENGTH_SHORT).show();
+        //CREAMOS LA CONEXION A LA BASE DE DATOS REAL, BORRAMOS LA TABLA DE USUARIOS Y AGREGAMOS ESTE NUEVO USUARIO
+        ConSQL c = new ConSQL();
+        Connection connection = c.conclass();
+        vend = vendedor.getVendedor();
+
+        if(c != null){
+            //logear en real
+            try {
+                DBHelper admin=new DBHelper(this.getContext(),nombre_DB,null,1);
+                /*Abrimos la base de datos para escritura*/
+                SQLiteDatabase db=admin.getWritableDatabase();
+                /*Borramos la informacion actual*/
+                db.execSQL("delete from ventastot");
+
+                /*creamos dos variables string
+                 * inicializamos y convertimos*/
+                String vendedor;
+                String presupuesto;
+
+                String sqlstatement = "SELECT      SUM(Vr_total) AS vta\n" +
+                        "FROM            dbo.Bi_Auditoria_vtas3\n" +
+                        "WHERE        (vendedor = ? ) AND (Mes = MONTH(GETDATE())) AND (Año = YEAR(GETDATE()))\n" +
+                        "GROUP BY vendedor\n" +
+                        "ORDER BY vendedor" ;
+
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlstatement);
+                preparedStatement.setString(1, vend);
+                ResultSet set = preparedStatement.executeQuery();
+
+                while (set.next()){
+                    Toast.makeText(this.getContext(), "insertando suma ventas", Toast.LENGTH_LONG).show();
+                    /*Creamos un objeto contentvalues y instanciamos*/
+                    ContentValues values = new ContentValues();
+                    /*capturamos valores*/
+                    values.put("vendedor",vend.toString());
+                    values.put("ventas",set.getDouble(1));
+
+
+                    /*llamamos al insert damos el nombre de la base de datos
+                     * y los valores*/
+                    db.insert("ventastot",null,values);
+                }
+
+                /*cerramos la base de datos*/
+                db.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }else{
+            //loguar en local
+            Toast.makeText(this.getContext(), "Error", Toast.LENGTH_SHORT);
+        }
+    }
 }
