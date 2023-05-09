@@ -77,47 +77,8 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_fragment, container, false);
-//        ppto = new Presupuesto();
-//        vend = new Vendedor();
-
-
-
-        // Configurar el eje X (días del mes)
-        ArrayList<String> xValues = new ArrayList<>();
-        for (int i = 1; i <= 31; i++) {
-            xValues.add(String.valueOf(i));
-        }
-        XAxis xAxis = mLineChart.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(xValues));
-
-
-
-
-    /*    presupuestotext = view.findViewById(R.id.presupuesto_t);
-        presupuestotext.setText("a");
-        consultarpresupuesto();
-        presupuestotext.setText(ppto.getPresupuesto());
-        ventastext = view.findViewById(R.id.ventas_t);
-        ventastext.setText("b");
-        consultarventas();
-        ventastext.setText(vend.getVentas());
-
-        pendientetext = view.findViewById(R.id.pendiente_t);
-        try {
-
-            int t = p - v;
-            DecimalFormat formato = new DecimalFormat("#.###");
-            String valorFormateado = formato.format(Integer.parseInt(String.valueOf(t)));
-            pendientetext.setText(valorFormateado);
-        }catch (NumberFormatException e){
-            Toast.makeText(getContext(), "Error: "+e.getMessage(), Toast.LENGTH_LONG).show();
-        }*/
-
-        //pendientetext.setText(pendiente.toString());
-
         return view;
     }
-
     public void consultarpresupuesto(){
 
         DBHelper admin=new DBHelper(this.getContext(),nombre_DB,null,1);

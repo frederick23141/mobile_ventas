@@ -97,11 +97,6 @@ public class Login extends AppCompatActivity  {
                     //lanzamos la actividad
                     ////// startActivity(ven);
 
-                    vendedor.setVendedor(user.getText().toString());
-                    //limpiamos las las cajas de texto
-                    user.setText("ingreso local");
-                    password.setText("");
-
                     //ACA DEBEMOS ENVIAR A LA OTRA VENTANA
                     Intent intent= new Intent (Login.this, MainActivity.class);
                     startActivity(intent);
@@ -121,14 +116,11 @@ public class Login extends AppCompatActivity  {
                         preparedStatement.setString(2,password.getText().toString());
                         preparedStatement.setString(3,"A");
                         ResultSet set = preparedStatement.executeQuery();
-
                         if (set.next()){
                             Toast.makeText(getApplicationContext(), "Felicidades. encontrado", Toast.LENGTH_SHORT).show();
                             //setContentView(R.layout.home);
-
                             //borrartodo lo de la tabla usuario
                             //borrar_tabla_usuario();
-
                             //registrar este usuario para permitirle ingresar en local
                             RegistrarDataUser(user.getText().toString(),password.getText().toString());
                             Vendedor vendedor = new Vendedor();
@@ -149,10 +141,6 @@ public class Login extends AppCompatActivity  {
                     Toast.makeText(Login.this,
                             "Error", Toast.LENGTH_SHORT);
                 }
-
-
-
-
             }
         } catch (Exception e) {//capturamos los errores que ubieran
             Toast toast=Toast.makeText(this,"Error" + e.getMessage(),Toast.LENGTH_LONG);
