@@ -28,7 +28,7 @@
                 android:foregroundGravity="center"
                 android:paddingLeft="14dp"
                 android:paddingRight="14dp"
-                android:src="@drawable/icon_cliente_list"></ImageView>
+                android:src="@drawable/ic_round_blur_on_24"></ImageView>
 
             <ImageView
                 android:id="@+id/imagen_persona2"
@@ -41,7 +41,7 @@
                 android:foregroundGravity="center"
                 android:paddingLeft="14dp"
                 android:paddingRight="14dp"
-                android:src="@drawable/icon_telephone_list"></ImageView>
+                android:src="@drawable/ic_round_blur_on_24"></ImageView>
 
             <LinearLayout
                 android:id="@+id/linear_layout"

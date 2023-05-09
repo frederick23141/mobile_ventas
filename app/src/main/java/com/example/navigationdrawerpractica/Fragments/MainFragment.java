@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,18 @@ import com.example.navigationdrawerpractica.Entidades.Persona;
 import com.example.navigationdrawerpractica.Entidades.Presupuesto;
 import com.example.navigationdrawerpractica.Entidades.Vendedor;
 import com.example.navigationdrawerpractica.R;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.ValueDependentColor;
@@ -37,6 +50,8 @@ import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainFragment extends Fragment {
 
@@ -55,18 +70,33 @@ public class MainFragment extends Fragment {
     int p;
     int v;
 
-
+    BarChart chart;
+    private LineChart mLineChart;
+    private Button mButtonDays, mButtonWeeks, mButtonMonths;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_fragment, container, false);
-        ppto = new Presupuesto();
-        vend = new Vendedor();
-        presupuestotext = view.findViewById(R.id.presupuesto_t);
+//        ppto = new Presupuesto();
+//        vend = new Vendedor();
+
+
+
+        // Configurar el eje X (días del mes)
+        ArrayList<String> xValues = new ArrayList<>();
+        for (int i = 1; i <= 31; i++) {
+            xValues.add(String.valueOf(i));
+        }
+        XAxis xAxis = mLineChart.getXAxis();
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(xValues));
+
+
+
+
+    /*    presupuestotext = view.findViewById(R.id.presupuesto_t);
         presupuestotext.setText("a");
         consultarpresupuesto();
         presupuestotext.setText(ppto.getPresupuesto());
-
         ventastext = view.findViewById(R.id.ventas_t);
         ventastext.setText("b");
         consultarventas();
@@ -81,7 +111,7 @@ public class MainFragment extends Fragment {
             pendientetext.setText(valorFormateado);
         }catch (NumberFormatException e){
             Toast.makeText(getContext(), "Error: "+e.getMessage(), Toast.LENGTH_LONG).show();
-        }
+        }*/
 
         //pendientetext.setText(pendiente.toString());
 

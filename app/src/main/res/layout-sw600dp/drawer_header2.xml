@@ -13,7 +13,7 @@
     <ImageView
         android:layout_width="178dp"
         android:layout_height="102dp"
-        android:src="@drawable/logo" />
+        android:src="@drawable/common_full_open_on_phone" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

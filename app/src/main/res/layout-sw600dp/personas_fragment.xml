@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="55dp"
-    android:background="@drawable/login">
+    android:background="@drawable/common_full_open_on_phone">
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_marginTop="12dp"
@@ -18,7 +18,7 @@
         android:hint="        Buscar..."
         app:counterEnabled="true"
         app:hintTextColor="@color/black"
-        app:startIconDrawable="@drawable/search"
+        app:startIconDrawable="@drawable/common_full_open_on_phone"
         android:background="@color/white"
         >
 
