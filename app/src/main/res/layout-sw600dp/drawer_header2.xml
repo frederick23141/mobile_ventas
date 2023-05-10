@@ -4,22 +4,22 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="180dp"
-    android:background="@color/fondo_color_oscuro"
+    android:background="@color/white"
     android:gravity="bottom"
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
-        android:layout_width="178dp"
+        android:layout_width="182dp"
         android:layout_height="102dp"
-        android:src="@drawable/common_full_open_on_phone" />
+        android:src="@drawable/logo_login" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:text="Usuario"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:fontFamily="@font/poppinspxtrabold"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         />
@@ -29,5 +29,5 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppinspxtrabold"
         android:text="User@corsan.com.co"
-        android:textColor="@color/white" />
+        android:textColor="@color/black" />
 </LinearLayout>

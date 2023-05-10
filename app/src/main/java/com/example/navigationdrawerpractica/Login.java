@@ -96,7 +96,7 @@ public class Login extends AppCompatActivity  {
                     /////Intent ven=new Intent(this, PrincipalMenu.class);
                     //lanzamos la actividad
                     ////// startActivity(ven);
-
+                    vendedor.setVendedor(usuariol);
                     //ACA DEBEMOS ENVIAR A LA OTRA VENTANA
                     Intent intent= new Intent (Login.this, MainActivity.class);
                     startActivity(intent);

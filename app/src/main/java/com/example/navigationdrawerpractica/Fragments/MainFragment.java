@@ -1,16 +1,32 @@
 package com.example.navigationdrawerpractica.Fragments;
+import android.graphics.Color;
+import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
 
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.DefaultFillFormatter;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+
+import java.util.ArrayList;
+import java.util.List;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +69,20 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.graphics.Color;
+import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class MainFragment extends Fragment {
 
     GraphView grafica;
@@ -70,15 +100,85 @@ public class MainFragment extends Fragment {
     int p;
     int v;
 
-    BarChart chart;
+    LineChart chart;
     private LineChart mLineChart;
     private Button mButtonDays, mButtonWeeks, mButtonMonths;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_fragment, container, false);
+        chart =  view.findViewById(R.id.chart);
+        setupChart(chart);
+        loadChartData(chart);
         return view;
+
+
+
     }
+
+    private void setupChart(LineChart chart) {
+        // Configurar aspectos visuales del gráfico
+        chart.setDrawGridBackground(false);
+        Description description = new Description();
+        description.setText("");
+        chart.setDescription(description);
+        chart.getLegend().setEnabled(false);
+        chart.setTouchEnabled(false);
+
+        // Animación de entrada
+        chart.animateY(1000, Easing.EaseInOutQuad);
+
+        // Configurar ejes
+        chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        chart.getXAxis().setGranularity(1f);
+        chart.getAxisLeft().setAxisMinimum(0f);
+        chart.getAxisRight().setEnabled(false);
+        chart.getAxisLeft().setTextColor(Color.BLACK);
+        chart.getXAxis().setTextColor(Color.BLACK);
+        chart.getAxisLeft().setGridColor(Color.LTGRAY);
+        chart.getXAxis().setGridColor(Color.LTGRAY);
+
+    }
+
+    private void loadChartData(LineChart chart) {
+        // Datos de ejemplo (valores por día de la semana)
+        List<Entry> entries = new ArrayList<>();
+        entries.add(new Entry(0f, 50f));
+        entries.add(new Entry(1f, 70f));
+        entries.add(new Entry(2f, 60f));
+        entries.add(new Entry(3f, 80f));
+        entries.add(new Entry(4f, 90f));
+        entries.add(new Entry(5f, 75f));
+        entries.add(new Entry(6f, 65f));
+
+        // Configurar etiquetas de los días de la semana
+        String[] labels = new String[]{"Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"};
+
+        // Crear conjunto de datos de línea
+        LineDataSet dataSet = new LineDataSet(entries, "Valores");
+        dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER); // Establecer el modo de línea suave
+        dataSet.setCubicIntensity(0.2f); // Controlar la suavidad de las curvas
+        dataSet.setDrawCircles(false); // Ocultar los círculos en los puntos
+        dataSet.setColor(Color.rgb(33, 150, 243)); // Color de la línea
+
+        // Configurar relleno de área bajo la línea
+        dataSet.setDrawFilled(true); // Rellenar área debajo de la línea
+        dataSet.setFillFormatter(new DefaultFillFormatter()); // Utilizar relleno predeterminado
+        dataSet.setFillColor(Color.rgb(33, 150, 243)); // Color del área
+        dataSet.setFillAlpha(100); // Transparencia del área
+
+        // Crear objeto LineData y establecer conjunto de datos de línea
+        LineData lineData = new LineData(dataSet);
+        chart.setData(lineData);
+
+        // Configurar etiquetas de los días de la semana en el eje X
+        chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
+        chart.getXAxis().setLabelCount(labels.length);
+
+        chart.invalidate(); // Refrescar el gráfico
+    }
+
+
     public void consultarpresupuesto(){
 
         DBHelper admin=new DBHelper(this.getContext(),nombre_DB,null,1);
