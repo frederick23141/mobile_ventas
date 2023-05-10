@@ -177,12 +177,12 @@ public class MainFragment extends Fragment {
         dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER); // Establecer el modo de línea suave
         dataSet.setCubicIntensity(0.2f); // Controlar la suavidad de las curvas
         dataSet.setDrawCircles(true); // Ocultar los círculos en los puntos
-        dataSet.setColor(Color.rgb(33, 150, 243)); // Color de la línea
+        dataSet.setColor(Color.rgb(252, 96, 17)); // Color de la línea
 
         // Configurar relleno de área bajo la línea
         dataSet.setDrawFilled(true); // Rellenar área debajo de la línea
         dataSet.setFillFormatter(new DefaultFillFormatter()); // Utilizar relleno predeterminado
-        dataSet.setFillColor(Color.rgb(33, 150, 243)); // Color del área
+        dataSet.setFillColor(Color.rgb(252, 96, 17)); // Color del área
         dataSet.setFillAlpha(100); // Transparencia del área
 
 
@@ -191,8 +191,8 @@ public class MainFragment extends Fragment {
         dataSet2.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
         dataSet2.setCubicIntensity(0.1f);
         dataSet2.setDrawCircles(false);
-        dataSet2.setColor(Color.rgb(255, 0, 0));
-        dataSet2.setFillColor(Color.rgb(255, 0, 0));
+        dataSet2.setColor(Color.rgb(0, 0, 0));
+        //dataSet2.setFillColor(Color.rgb(255, 0, 0));
         dataSet2.setFillAlpha(100);
 
         // Combinar los conjuntos de datos
