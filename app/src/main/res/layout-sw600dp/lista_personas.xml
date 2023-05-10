@@ -30,7 +30,7 @@
                 android:foregroundGravity="center"
                 android:paddingLeft="14dp"
                 android:paddingRight="14dp"
-                android:src="@drawable/common_full_open_on_phone"></ImageView>
+                android:src="@drawable/ic_person"></ImageView>
 
             <ImageView
                 android:id="@+id/imagen_persona2"
@@ -38,12 +38,10 @@
                 android:layout_height="80dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginLeft="709dp"
-                android:layout_marginEnd="5dp"
                 android:foregroundGravity="center"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp"
-                android:src="@drawable/common_full_open_on_phone"></ImageView>
+                android:paddingLeft="1dp"
+                android:paddingRight="1dp"
+                android:src="@drawable/ic_telefono_naranja"></ImageView>
 
             <LinearLayout
                 android:id="@+id/linear_layout"

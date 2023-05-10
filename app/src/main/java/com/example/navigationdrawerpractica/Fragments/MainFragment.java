@@ -1,5 +1,7 @@
 package com.example.navigationdrawerpractica.Fragments;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.PaintDrawable;
 import android.os.Bundle;
@@ -30,6 +32,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -115,6 +118,7 @@ public class MainFragment extends Fragment {
         chart =  view.findViewById(R.id.chart);
         setupChart(chart);
         loadChartData(chart);
+
         return view;
 
 
@@ -158,19 +162,29 @@ public class MainFragment extends Fragment {
         entries1.add(new Entry(3f, 80f));
         entries1.add(new Entry(4f, 90f));
         entries1.add(new Entry(5f, 75f));
-        entries1.add(new Entry(6f, 65f));
+        entries1.add(new Entry(6f, 22));
+        entries1.add(new Entry(7f, 90));
+        entries1.add(new Entry(8f, 45));
+        entries1.add(new Entry(9f, 10));
+        entries1.add(new Entry(10f, 80));
+        entries1.add(new Entry(11f, 63));
 
         List<Entry> entries2 = new ArrayList<>();
-        entries2.add(new Entry(0f, 30));
-        entries2.add(new Entry(1f, 30));
-        entries2.add(new Entry(2f, 30));
-        entries2.add(new Entry(3f, 30));
-        entries2.add(new Entry(4f, 30));
-        entries2.add(new Entry(5f, 30));
-        entries2.add(new Entry(6f, 30));
+        entries2.add(new Entry(0f, 68));
+        entries2.add(new Entry(1f, 68));
+        entries2.add(new Entry(2f, 68));
+        entries2.add(new Entry(3f, 68));
+        entries2.add(new Entry(4f, 68));
+        entries2.add(new Entry(5f, 68));
+        entries2.add(new Entry(6f, 68));
+        entries2.add(new Entry(7f, 68));
+        entries2.add(new Entry(8f, 68));
+        entries2.add(new Entry(9f, 68));
+        entries2.add(new Entry(10f, 68));
+        entries2.add(new Entry(11f, 68));
 
         // Configurar etiquetas de los días de la semana
-        String[] labels = new String[]{"Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"};
+        String[] labels = new String[]{"D1", "D1", "D3", "D4", "D5", "D6", "D7","D8","D9","D10","D11","D12"};
 
         // Crear conjunto de datos de línea
         LineDataSet dataSet = new LineDataSet(entries1, "Ventas");
@@ -186,11 +200,13 @@ public class MainFragment extends Fragment {
         dataSet.setFillAlpha(100); // Transparencia del área
 
 
+
         // Crear conjunto de datos de línea para la serie 2
         LineDataSet dataSet2 = new LineDataSet(entries2, "Presupuesto dia");
         dataSet2.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
         dataSet2.setCubicIntensity(0.1f);
         dataSet2.setDrawCircles(false);
+        dataSet2.setDrawValues(false);
         dataSet2.setColor(Color.rgb(0, 0, 0));
         //dataSet2.setFillColor(Color.rgb(255, 0, 0));
         dataSet2.setFillAlpha(100);

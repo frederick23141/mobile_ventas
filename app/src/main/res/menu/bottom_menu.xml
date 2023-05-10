@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/miHome"
+        android:title="Home"
+        android:icon="@drawable/gohan_cara1" />
+
+    <item android:id="@+id/miSearch"
+        android:title="Search"
+        android:icon="@drawable/gohan_cara1" />
+
+    <item android:id="@+id/placeholder"
+        android:title="" />
+
+    <item android:id="@+id/miProfile"
+        android:title="Profile"
+        android:icon="@drawable/gohan_cara1" />
+
+    <item android:id="@+id/miSettings"
+        android:title="Settings"
+        android:icon="@drawable/gohan_cara1" />
+</menu>
