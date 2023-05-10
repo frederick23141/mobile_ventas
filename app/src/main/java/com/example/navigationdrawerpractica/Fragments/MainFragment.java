@@ -1,11 +1,15 @@
 package com.example.navigationdrawerpractica.Fragments;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.PaintDrawable;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -50,6 +54,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
@@ -125,40 +130,53 @@ public class MainFragment extends Fragment {
         chart.getLegend().setEnabled(false);
         chart.setTouchEnabled(false);
 
+        chart.getLegend().setEnabled(true); // Habilitar la leyenda
+        chart.getLegend().setTextSize(12f); // Tamaño del texto de la leyenda
+        chart.getLegend().setFormSize(10f); // Tamaño de los iconos de la leyenda
+        chart.getLegend().setForm(Legend.LegendForm.CIRCLE); // Estilo de los iconos de la leyenda (en este caso, círculos)
+
         // Animación de entrada
         chart.animateY(1000, Easing.EaseInOutQuad);
 
         // Configurar ejes
         chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         chart.getXAxis().setGranularity(1f);
+        chart.getXAxis().setDrawGridLines(false); // Quitar líneas de cuadrícula en el eje X
         chart.getAxisLeft().setAxisMinimum(0f);
+        chart.getAxisLeft().setDrawGridLines(false); // Quitar líneas de cuadrícula en el eje Y
         chart.getAxisRight().setEnabled(false);
         chart.getAxisLeft().setTextColor(Color.BLACK);
         chart.getXAxis().setTextColor(Color.BLACK);
-        chart.getAxisLeft().setGridColor(Color.LTGRAY);
-        chart.getXAxis().setGridColor(Color.LTGRAY);
-
     }
 
     private void loadChartData(LineChart chart) {
         // Datos de ejemplo (valores por día de la semana)
-        List<Entry> entries = new ArrayList<>();
-        entries.add(new Entry(0f, 50f));
-        entries.add(new Entry(1f, 70f));
-        entries.add(new Entry(2f, 60f));
-        entries.add(new Entry(3f, 80f));
-        entries.add(new Entry(4f, 90f));
-        entries.add(new Entry(5f, 75f));
-        entries.add(new Entry(6f, 65f));
+        List<Entry> entries1 = new ArrayList<>();
+        entries1.add(new Entry(0f, 50f));
+        entries1.add(new Entry(1f, 70f));
+        entries1.add(new Entry(2f, 60f));
+        entries1.add(new Entry(3f, 80f));
+        entries1.add(new Entry(4f, 90f));
+        entries1.add(new Entry(5f, 75f));
+        entries1.add(new Entry(6f, 65f));
+
+        List<Entry> entries2 = new ArrayList<>();
+        entries2.add(new Entry(0f, 30));
+        entries2.add(new Entry(1f, 30));
+        entries2.add(new Entry(2f, 30));
+        entries2.add(new Entry(3f, 30));
+        entries2.add(new Entry(4f, 30));
+        entries2.add(new Entry(5f, 30));
+        entries2.add(new Entry(6f, 30));
 
         // Configurar etiquetas de los días de la semana
         String[] labels = new String[]{"Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"};
 
         // Crear conjunto de datos de línea
-        LineDataSet dataSet = new LineDataSet(entries, "Valores");
+        LineDataSet dataSet = new LineDataSet(entries1, "Ventas");
         dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER); // Establecer el modo de línea suave
         dataSet.setCubicIntensity(0.2f); // Controlar la suavidad de las curvas
-        dataSet.setDrawCircles(false); // Ocultar los círculos en los puntos
+        dataSet.setDrawCircles(true); // Ocultar los círculos en los puntos
         dataSet.setColor(Color.rgb(33, 150, 243)); // Color de la línea
 
         // Configurar relleno de área bajo la línea
@@ -167,16 +185,32 @@ public class MainFragment extends Fragment {
         dataSet.setFillColor(Color.rgb(33, 150, 243)); // Color del área
         dataSet.setFillAlpha(100); // Transparencia del área
 
-        // Crear objeto LineData y establecer conjunto de datos de línea
-        LineData lineData = new LineData(dataSet);
+
+        // Crear conjunto de datos de línea para la serie 2
+        LineDataSet dataSet2 = new LineDataSet(entries2, "Presupuesto dia");
+        dataSet2.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+        dataSet2.setCubicIntensity(0.1f);
+        dataSet2.setDrawCircles(false);
+        dataSet2.setColor(Color.rgb(255, 0, 0));
+        dataSet2.setFillColor(Color.rgb(255, 0, 0));
+        dataSet2.setFillAlpha(100);
+
+        // Combinar los conjuntos de datos
+        List<ILineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(dataSet);
+        dataSets.add(dataSet2);
+
+        // Crear objeto LineData y establecer los conjuntos de datos de línea
+        LineData lineData = new LineData(dataSets);
         chart.setData(lineData);
 
         // Configurar etiquetas de los días de la semana en el eje X
         chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
         chart.getXAxis().setLabelCount(labels.length);
-
         chart.invalidate(); // Refrescar el gráfico
+
     }
+
 
 
     public void consultarpresupuesto(){
