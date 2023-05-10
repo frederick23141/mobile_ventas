@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -42,7 +43,7 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class PersonasFragment extends Fragment {
+public class PersonasFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     //private OnFragmentInteractionListener mListener;
     String nombre_DB = "DB_MOBILE";
@@ -54,7 +55,7 @@ public class PersonasFragment extends Fragment {
     Toolbar toolbar;
 
     //EditText txtnombre;
-    TextInputEditText txtnombre;
+    SearchView txtnombre;
 
     //Crear referencias para poder realizar la comunicacion entre el fragment detalle
     Activity actividad;
@@ -68,15 +69,15 @@ public class PersonasFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.personas_fragment,container,false);
-        txtnombre = view.findViewById(R.id.txtnombre);
-
+        txtnombre = view.findViewById(R.id.txt_buscar);
         toolbar = view.findViewById(R.id.toolbar);
         vendedor = new Vendedor();
         recyclerViewPersonas = view.findViewById(R.id.recyclerView);
 
-
         conn=new DBHelper(this.getContext(),"userclientes",null,1);
         listaPersonas = new ArrayList<>();
+
+        txtnombre.setOnQueryTextListener(this);
 
         //cargarBDclientes();
 
@@ -126,7 +127,7 @@ public class PersonasFragment extends Fragment {
             @Override
             public void onClick(View view) {
                String nombre = listaPersonas.get(recyclerViewPersonas.getChildAdapterPosition(view)).getNombre();
-               txtnombre.setText(nombre);
+               //txtnombre.s(nombre);
                Toast.makeText(getContext(), "Seleccionó: "+listaPersonas.get(recyclerViewPersonas.getChildAdapterPosition(view)).getNombre(), Toast.LENGTH_SHORT).show();
                 //enviar mediante la interface el objeto seleccionado al detalle
                 //se envia el objeto completo
@@ -164,5 +165,14 @@ public class PersonasFragment extends Fragment {
         //mListener = null;
     }
 
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
 
+    @Override
+    public boolean onQueryTextChange(String s) {
+        adapterPersonas.filtrado(s);
+        return false;
+    }
 }
