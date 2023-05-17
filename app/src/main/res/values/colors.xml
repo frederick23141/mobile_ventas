@@ -22,4 +22,5 @@
     <color name="back_color_dark">#253334</color>
     <color name="back_color_butons_">#7C9A92</color>
     <color name="color_app">#FC6011</color>
+    <color name="fondo_oscuro">#263138</color>
 </resources>

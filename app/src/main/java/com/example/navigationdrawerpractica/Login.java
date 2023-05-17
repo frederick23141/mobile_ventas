@@ -46,7 +46,6 @@ public class Login extends AppCompatActivity  {
         password = ((EditText) findViewById(R.id.txtpass));
         iniciar = (Button) findViewById(R.id.enviar_button);
 
-
         //quemar datos para iniciar que existen en bd
         user.setText("1060");
         password.setText("*1060");
