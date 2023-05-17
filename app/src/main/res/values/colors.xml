@@ -23,4 +23,5 @@
     <color name="back_color_butons_">#7C9A92</color>
     <color name="color_app">#FC6011</color>
     <color name="fondo_oscuro">#263138</color>
+    <color name="fondo_dashboard">#2B2D5B</color>
 </resources>

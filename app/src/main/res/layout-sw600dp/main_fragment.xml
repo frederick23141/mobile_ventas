@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     android:padding="10dp"
     tools:ignore="MissingDefaultResource"
-    android:background="@color/fondo_oscuro">
+    android:background="@color/fondo_dashboard">
 
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart2"
         android:layout_width="764dp"
         android:layout_height="356dp"
-        android:layout_marginBottom="264dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.055"

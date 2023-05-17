@@ -1,4 +1,6 @@
 package com.example.navigationdrawerpractica.Fragments;
+import static androidx.core.content.res.ResourcesCompat.getColor;
+
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
@@ -8,6 +10,7 @@ import android.graphics.drawable.PaintDrawable;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.navigationdrawerpractica.custom.MyMarkerView;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -135,22 +138,7 @@ public class MainFragment extends Fragment {
         View view = inflater.inflate(R.layout.main_fragment, container, false);
         chart =  view.findViewById(R.id.chart);
         chartL =  view.findViewById(R.id.chart2);
-       // setTitle("PieChartActivity");
-        //setupChart(chart);
-        //loadChartData(chart);
 
-
-
-/*        tvX = findViewById(R.id.tvXMax);
-        tvY = findViewById(R.id.tvYMax);
-
-        seekBarX = findViewById(R.id.seekBar1);
-        seekBarY = findViewById(R.id.seekBar2);
-
-        seekBarX.setOnSeekBarChangeListener(this);
-        seekBarY.setOnSeekBarChangeListener(this);*/
-
-        //chart = findViewById(R.id.chart1);
         chart.setUsePercentValues(true);
         chart.getDescription().setEnabled(false);
         chart.setExtraOffsets(5, 10, 5, 5);
@@ -177,14 +165,6 @@ public class MainFragment extends Fragment {
         chart.setRotationEnabled(true);
         chart.setHighlightPerTapEnabled(true);
 
-         //chart.setUnit(" €");
-        // chart.setDrawUnitsInChart(true);
-
-        // add a selection listener
-        //chart.setOnChartValueSelectedListener((OnChartValueSelectedListener) this);
-
-       // seekBarX.setProgress(4);
-       // seekBarY.setProgress(10);
 
         chart.animateY(1400, Easing.EaseInOutQuad);
         // chart.spin(2000, 0, 360);
@@ -204,7 +184,7 @@ public class MainFragment extends Fragment {
         chart.setEntryLabelTextSize(12f);
         setData(5,20);
         stilo_grafica_dia();
-        setDataLine(5,20);
+        setDataLine(12,180);
         return view;
 
     }
@@ -215,7 +195,7 @@ public class MainFragment extends Fragment {
         {   // // Chart Style // //
 
             // background color
-            chartL.setBackgroundColor(Color.WHITE);
+            chartL.setBackgroundColor(Color.TRANSPARENT);
 
             // disable description text
             chartL.getDescription().setEnabled(false);
@@ -224,15 +204,15 @@ public class MainFragment extends Fragment {
             chartL.setTouchEnabled(true);
 
             // set listeners
-           // chartL.setOnChartValueSelectedListener(this);
+            //chartL.setOnChartValueSelectedListener(this.getContext());
             chartL.setDrawGridBackground(false);
 
             // create marker to display box when values are selected
-        //    MyMarkerView mv = new MyMarkerView(this, R.layout.custom_marker_view);
+            MyMarkerView mv = new MyMarkerView(this.getContext(), R.layout.custom_market_view);
 
             // Set the marker to the chart
-           // mv.setChartView(chartL);
-         //   chartL.setMarker(mv);
+            mv.setChartView(chartL);
+            chartL.setMarker(mv);
 
             // enable scaling and dragging
             chartL.setDragEnabled(true);
@@ -264,7 +244,7 @@ public class MainFragment extends Fragment {
 
             // axis range
             yAxis.setAxisMaximum(200f);
-            yAxis.setAxisMinimum(-50f);
+            yAxis.setAxisMinimum(0f);
         }
 
 
@@ -277,18 +257,12 @@ public class MainFragment extends Fragment {
           //  llXAxis.setTypeface(tfRegular);
 
             LimitLine ll1 = new LimitLine(150f, "Upper Limit");
-            ll1.setLineWidth(4f);
+            ll1.setLineWidth(2f);
             ll1.enableDashedLine(10f, 10f, 0f);
             ll1.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
             ll1.setTextSize(10f);
            // ll1.setTypeface(tfRegular);
 
-            LimitLine ll2 = new LimitLine(-30f, "Lower Limit");
-            ll2.setLineWidth(4f);
-            ll2.enableDashedLine(10f, 10f, 0f);
-            ll2.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
-            ll2.setTextSize(10f);
-           // ll2.setTypeface(tfRegular);
 
             // draw limit lines behind data instead of on top
             yAxis.setDrawLimitLinesBehindData(true);
@@ -296,14 +270,9 @@ public class MainFragment extends Fragment {
 
             // add limit lines
             yAxis.addLimitLine(ll1);
-            yAxis.addLimitLine(ll2);
+
             //xAxis.addLimitLine(llXAxis);
         }
-
-        // add data
-       // seekBarX.setProgress(45);
-      //  seekBarY.setProgress(180);
-       // setData(45, 180);
 
         // draw points over time
         chartL.animateX(1500);
@@ -344,7 +313,7 @@ public class MainFragment extends Fragment {
 
         ArrayList<Integer> colors = new ArrayList<>();
 
-        for (int c : ColorTemplate.VORDIPLOM_COLORS)
+        /*for (int c : ColorTemplate.VORDIPLOM_COLORS)
             colors.add(c);
 
         for (int c : ColorTemplate.JOYFUL_COLORS)
@@ -358,6 +327,18 @@ public class MainFragment extends Fragment {
 
         for (int c : ColorTemplate.PASTEL_COLORS)
             colors.add(c);
+
+        for (int c : ColorTemplate.MATERIAL_COLORS)
+            colors.add(c);*/
+        final String[] Colores = new String[] {
+                "#cc063e","#e83535","#fd9407","#e2d9c2","#10898b"
+        };
+
+
+
+        for (int i = 0 ; i < count; i ++){
+            colors.add(Color.parseColor(Colores[i]));
+        }
 
         colors.add(ColorTemplate.getHoloBlue());
 
@@ -380,11 +361,14 @@ public class MainFragment extends Fragment {
     private void setDataLine(int count, float range) {
 
         ArrayList<Entry> values = new ArrayList<>();
+        ArrayList<String> xAxisValues = new ArrayList<>();
 
-        for (int i = 0; i < count; i++) {
 
-            float val = (float) (Math.random() * range) / 2;
+       for (int i = 0; i < count; i++) {
+
+            float val = (float) (Math.random() * range) ;
             values.add(new Entry(i, val, getResources().getDrawable(R.drawable.gohan_cara1)));
+           xAxisValues.add("Lun");
         }
 
         LineDataSet set1;
@@ -393,6 +377,8 @@ public class MainFragment extends Fragment {
                 chartL.getData().getDataSetCount() > 0) {
             set1 = (LineDataSet) chartL.getData().getDataSetByIndex(0);
             set1.setValues(values);
+            XAxis xAxis = chartL.getXAxis();
+            xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisValues));
             set1.notifyDataSetChanged();
             chartL.getData().notifyDataChanged();
             chartL.notifyDataSetChanged();
@@ -448,115 +434,21 @@ public class MainFragment extends Fragment {
             ArrayList<ILineDataSet> dataSets = new ArrayList<>();
             dataSets.add(set1); // add the data sets
 
+            XAxis xAxis = chartL.getXAxis();
+            xAxis.setValueFormatter(new IndexAxisValueFormatter(xAxisValues));
+            xAxis.setDrawLabels(true);
+
+
             // create a data object with the data sets
             LineData data = new LineData(dataSets);
+            // Configurar el eje X con los valores de los días de la semana
+
+
 
             // set data
             chartL.setData(data);
         }
     }
-
-   /* private void setupChart(LineChart chart) {
-        // Configurar aspectos visuales del gráfico
-        chart.setDrawGridBackground(false);
-        Description description = new Description();
-        description.setText("");
-        chart.setDescription(description);
-        chart.getLegend().setEnabled(false);
-        chart.setTouchEnabled(false);
-
-        chart.getLegend().setEnabled(true); // Habilitar la leyenda
-        chart.getLegend().setTextSize(12f); // Tamaño del texto de la leyenda
-        chart.getLegend().setFormSize(10f); // Tamaño de los iconos de la leyenda
-        chart.getLegend().setForm(Legend.LegendForm.CIRCLE); // Estilo de los iconos de la leyenda (en este caso, círculos)
-
-        // Animación de entrada
-        chart.animateY(1000, Easing.EaseInOutQuad);
-
-        // Configurar ejes
-        chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        chart.getXAxis().setGranularity(1f);
-        chart.getXAxis().setDrawGridLines(false); // Quitar líneas de cuadrícula en el eje X
-        chart.getAxisLeft().setAxisMinimum(0f);
-        chart.getAxisLeft().setDrawGridLines(false); // Quitar líneas de cuadrícula en el eje Y
-        chart.getAxisRight().setEnabled(false);
-        chart.getAxisLeft().setTextColor(Color.BLACK);
-        chart.getXAxis().setTextColor(Color.BLACK);
-    }
-
-    private void loadChartData(LineChart chart) {
-        // Datos de ejemplo (valores por día de la semana)
-        List<Entry> entries1 = new ArrayList<>();
-        entries1.add(new Entry(0f, 50f));
-        entries1.add(new Entry(1f, 70f));
-        entries1.add(new Entry(2f, 60f));
-        entries1.add(new Entry(3f, 80f));
-        entries1.add(new Entry(4f, 90f));
-        entries1.add(new Entry(5f, 75f));
-        entries1.add(new Entry(6f, 22));
-        entries1.add(new Entry(7f, 90));
-        entries1.add(new Entry(8f, 45));
-        entries1.add(new Entry(9f, 10));
-        entries1.add(new Entry(10f, 80));
-        entries1.add(new Entry(11f, 63));
-
-        List<Entry> entries2 = new ArrayList<>();
-        entries2.add(new Entry(0f, 68));
-        entries2.add(new Entry(1f, 68));
-        entries2.add(new Entry(2f, 68));
-        entries2.add(new Entry(3f, 68));
-        entries2.add(new Entry(4f, 68));
-        entries2.add(new Entry(5f, 68));
-        entries2.add(new Entry(6f, 68));
-        entries2.add(new Entry(7f, 68));
-        entries2.add(new Entry(8f, 68));
-        entries2.add(new Entry(9f, 68));
-        entries2.add(new Entry(10f, 68));
-        entries2.add(new Entry(11f, 68));
-
-        // Configurar etiquetas de los días de la semana
-        String[] labels = new String[]{"D1", "D1", "D3", "D4", "D5", "D6", "D7","D8","D9","D10","D11","D12"};
-
-        // Crear conjunto de datos de línea
-        LineDataSet dataSet = new LineDataSet(entries1, "Ventas");
-        dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER); // Establecer el modo de línea suave
-        dataSet.setCubicIntensity(0.2f); // Controlar la suavidad de las curvas
-        dataSet.setDrawCircles(true); // Ocultar los círculos en los puntos
-        dataSet.setColor(Color.rgb(252, 96, 17)); // Color de la línea
-
-        // Configurar relleno de área bajo la línea
-        dataSet.setDrawFilled(true); // Rellenar área debajo de la línea
-        dataSet.setFillFormatter(new DefaultFillFormatter()); // Utilizar relleno predeterminado
-        dataSet.setFillColor(Color.rgb(252, 96, 17)); // Color del área
-        dataSet.setFillAlpha(100); // Transparencia del área
-
-
-
-        // Crear conjunto de datos de línea para la serie 2
-        LineDataSet dataSet2 = new LineDataSet(entries2, "Presupuesto dia");
-        dataSet2.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
-        dataSet2.setCubicIntensity(0.1f);
-        dataSet2.setDrawCircles(false);
-        dataSet2.setDrawValues(false);
-        dataSet2.setColor(Color.rgb(0, 0, 0));
-        //dataSet2.setFillColor(Color.rgb(255, 0, 0));
-        dataSet2.setFillAlpha(100);
-
-        // Combinar los conjuntos de datos
-        List<ILineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(dataSet);
-        dataSets.add(dataSet2);
-
-        // Crear objeto LineData y establecer los conjuntos de datos de línea
-        LineData lineData = new LineData(dataSets);
-        chart.setData(lineData);
-
-        // Configurar etiquetas de los días de la semana en el eje X
-        chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
-        chart.getXAxis().setLabelCount(labels.length);
-        chart.invalidate(); // Refrescar el gráfico
-
-    }*/
 
 
 
