@@ -139,6 +139,16 @@ public class MainFragment extends Fragment {
         chart =  view.findViewById(R.id.chart);
         chartL =  view.findViewById(R.id.chart2);
 
+
+        stilo_grafica_pie();
+        setData(5,20);
+        stilo_grafica_dia();
+        setDataLine(12,180);
+        return view;
+
+    }
+
+    private void stilo_grafica_pie(){
         chart.setUsePercentValues(true);
         chart.getDescription().setEnabled(false);
         chart.setExtraOffsets(5, 10, 5, 5);
@@ -154,9 +164,10 @@ public class MainFragment extends Fragment {
         chart.setTransparentCircleColor(Color.WHITE);
         chart.setTransparentCircleAlpha(110);
 
-       // chart.setHoleRadius(58f);
-        chart.setHoleRadius(48f);
-        chart.setTransparentCircleRadius(61f);
+        // chart.setHoleRadius(58f);
+        chart.setHoleRadius(30f);
+        //chart.setTransparentCircleRadius(61f);
+        chart.setTransparentCircleRadius(45f);
 
         chart.setDrawCenterText(true);
 
@@ -173,6 +184,8 @@ public class MainFragment extends Fragment {
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
         l.setOrientation(Legend.LegendOrientation.VERTICAL);
+        l.setTextColor(Color.WHITE);
+        l.setTextSize(12f);
         l.setDrawInside(false);
         l.setXEntrySpace(7f);
         l.setYEntrySpace(0f);
@@ -180,13 +193,8 @@ public class MainFragment extends Fragment {
 
         // entry label styling
         chart.setEntryLabelColor(Color.rgb(0,0,0));
-       // chart.setEntryLabelTypeface(tfRegular);
+        // chart.setEntryLabelTypeface(tfRegular);
         chart.setEntryLabelTextSize(12f);
-        setData(5,20);
-        stilo_grafica_dia();
-        setDataLine(12,180);
-        return view;
-
     }
 
     private void stilo_grafica_dia()
@@ -307,31 +315,14 @@ public class MainFragment extends Fragment {
         dataSet.setSliceSpace(3f);
         dataSet.setIconsOffset(new MPPointF(0, 40));
         //dataSet.setSelectionShift(5f);
-        dataSet.setSelectionShift(15f);
+        dataSet.setSelectionShift(20f);
 
         // add a lot of colors
 
         ArrayList<Integer> colors = new ArrayList<>();
 
-        /*for (int c : ColorTemplate.VORDIPLOM_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.JOYFUL_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.COLORFUL_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.LIBERTY_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.PASTEL_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.MATERIAL_COLORS)
-            colors.add(c);*/
         final String[] Colores = new String[] {
-                "#cc063e","#e83535","#fd9407","#e2d9c2","#10898b"
+                "#cc063e","#e83535","#fd9407","#e2d9c2","#10898b","#8fbe00","#aee239","#f9f2e7","#40c0cb","#00a8c6"
         };
 
 
@@ -347,9 +338,9 @@ public class MainFragment extends Fragment {
 
         PieData data = new PieData(dataSet);
         data.setValueFormatter(new PercentFormatter());
-        data.setValueTextSize(11f);
-        data.setValueTextColor(Color.rgb(0,0,0));
-        //*data.setValueTypeface(tfLight);
+        data.setValueTextSize(20f);
+        data.setValueTextColor(Color.rgb(255,255,255));
+        //data.setValueTypeface(tfLight);
         chart.setData(data);
 
         // undo all highlights

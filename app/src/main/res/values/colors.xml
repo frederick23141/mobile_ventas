@@ -24,4 +24,5 @@
     <color name="color_app">#FC6011</color>
     <color name="fondo_oscuro">#263138</color>
     <color name="fondo_dashboard">#2B2D5B</color>
+    <color name="fondo_dashboard_card">#232450</color>
 </resources>
