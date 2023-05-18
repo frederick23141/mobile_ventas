@@ -3,7 +3,7 @@ package com.example.navigationdrawerpractica.Entidades;
 public class Vendedor {
 
     private static  String vendedor;
-    private static  String ventas;
+    private static  int ventas;
 
 
     public String getVendedor() {
@@ -22,11 +22,14 @@ public class Vendedor {
         this.vendedor = vendedor;
     }
 
-    public static String getVentas() {
+    public int getVenta() {
+        return ventas;
+    }
+    public static double getVentas() {
         return ventas;
     }
 
-    public static void setVentas(String ventas) {
+    public static void setVentas(int ventas) {
         Vendedor.ventas = ventas;
     }
 }

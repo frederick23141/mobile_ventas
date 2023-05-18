@@ -192,9 +192,9 @@ public class ConfigFragment extends Fragment {
                     String vendedor;
                     String presupuesto;
 
-                    String sqlstatement = "SELECT        CONVERT(int, ROUND(SUM(valor), 0)) AS valor\n" +
+                    String sqlstatement = "SELECT        CONVERT(int, ROUND(SUM(valor), 0)) AS valor,diasHabiles\n" +
                             "FROM            dbo.presupuesto_ventas\n" +
-                            "WHERE        (vendedor = ? ) AND (ano = YEAR(GETDATE())) AND (mes = MONTH(GETDATE())) AND (id_definicion = 3)" ;
+                            "WHERE        (vendedor = ? ) AND (ano = YEAR(GETDATE())) AND (mes = MONTH(GETDATE())) AND (id_definicion = 3) group by diasHabiles" ;
 
                     PreparedStatement preparedStatement = connection.prepareStatement(sqlstatement);
                     preparedStatement.setString(1, vend);
@@ -206,7 +206,8 @@ public class ConfigFragment extends Fragment {
                         ContentValues values = new ContentValues();
                         /*capturamos valores*/
                         values.put("vendedor",vend);
-                        values.put("presupuesto",set.getString(1));
+                        values.put("presupuesto",set.getInt(1));
+                        values.put("dias_habiles",set.getInt(2));
                         /*llamamos al insert damos el nombre de la base de datos
                          * y los valores*/
                         db.insert("presupuestoventas",null,values);
@@ -384,7 +385,7 @@ public class ConfigFragment extends Fragment {
                         /*capturamos valores*/
                         values.put("vendedor",vend.toString());
                         values.put("fecha",set.getString(1));
-                        values.put("ventas",set.getString(2));
+                        values.put("ventas",set.getInt(2));
 
                         /*llamamos al insert damos el nombre de la base de datos
                          * y los valores*/

@@ -40,12 +40,13 @@ public class DBHelper extends SQLiteOpenHelper {
 
         /*Creacion de la tabla presupuesto para cada vendedor*/
         db.execSQL("create table presupuestoventas(vendedor text NOT NULL ," +
-                "presupuesto text NOT NULL)");
+                "presupuesto integer NOT NULL ," +
+                "dias_habiles integer not null)");
 
         /*Creacion de la tabla ventas dia para cada vendedor*/
         db.execSQL("create table ventasvendedor(vendedor text  NOT NULL," +
                 "fecha text ," +
-                "ventas text NOT NULL)");
+                "ventas integer NOT NULL)");
 
         /*Creacion de la tabla ventas para cada vendedor*/
         db.execSQL("create table ventastot(vendedor text  NOT NULL," +

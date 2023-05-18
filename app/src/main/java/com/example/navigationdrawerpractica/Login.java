@@ -47,8 +47,8 @@ public class Login extends AppCompatActivity  {
         iniciar = (Button) findViewById(R.id.enviar_button);
 
         //quemar datos para iniciar que existen en bd
-        user.setText("1060");
-        password.setText("*1060");
+        user.setText("1044");
+        password.setText("*1044");
 
 
         iniciar.setOnClickListener(new View.OnClickListener() {

@@ -2,13 +2,13 @@ package com.example.navigationdrawerpractica.Entidades;
 
 public class Presupuesto {
 
-    private static String Presupuesto;
+    private static int Presupuesto;
 
-    public String getPresupuesto() {
+    public int getPresupuesto() {
         return Presupuesto;
     }
 
-    public Presupuesto(String Presupuesto) {
+    public Presupuesto(int   Presupuesto) {
         this.Presupuesto = Presupuesto;
     }
 
@@ -16,7 +16,7 @@ public class Presupuesto {
         this.Presupuesto = Presupuesto;
     }
 
-    public void setPresupuesto(String Presupuesto) {
+    public void setPresupuesto(int Presupuesto) {
         this.Presupuesto = Presupuesto;
     }
 }

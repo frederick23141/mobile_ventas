@@ -1,12 +1,15 @@
 package com.example.navigationdrawerpractica.Fragments;
 import static androidx.core.content.res.ResourcesCompat.getColor;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.PaintDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -36,6 +39,11 @@ import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Layout;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +77,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
@@ -107,7 +116,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeListener,
+        OnChartValueSelectedListener {
 
     GraphView grafica;
     String nombre_DB = "DB_MOBILE";
@@ -117,6 +127,7 @@ public class MainFragment extends Fragment {
     TextView presupuestotext;
     TextView pendientetext;
     TextView ventastext;
+    TextView porcentajeventas;
     Presupuesto ppto;
     Vendedor vend;
     Double valorppto;
@@ -132,31 +143,66 @@ public class MainFragment extends Fragment {
     LineChart chartL;
     private LineChart mLineChart;
     private Button mButtonDays, mButtonWeeks, mButtonMonths;
+
+    ArrayList<Entry> values = new ArrayList<>();
+    ArrayList<String> xAxisValues = new ArrayList<>();
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_fragment, container, false);
         chart =  view.findViewById(R.id.chart);
         chartL =  view.findViewById(R.id.chart2);
+        ventastext = view.findViewById(R.id.txtventas);
+        presupuestotext = view.findViewById(R.id.txtpptoventas);
+        pendientetext = view.findViewById(R.id.txtpendiente);
+        porcentajeventas = view.findViewById(R.id.txtporcentajeventa);
+        vend = new Vendedor();
+        ppto = new Presupuesto();
 
 
+
+        consultarventas();
+        consultarpresupuesto();
         stilo_grafica_pie();
-        setData(5,20);
+        setData(5,180);
         stilo_grafica_dia();
-        setDataLine(12,180);
+        setDataLine(12,80000000);
         return view;
 
+    }
+
+    @Override
+    public void onValueSelected(Entry e, Highlight h) {
+
+        if (e == null)
+            return;
+        Log.i("VAL SELECTED",
+                "Value: " + e.getY() + ", index: " + h.getX()
+                        + ", DataSet index: " + h.getDataSetIndex());
+
+        DecimalFormat formato = new DecimalFormat("#,###");
+        //System.out.println(formatoNumero.format(numero));
+        int val = (int) e.getY();
+        String valorFormateado = formato.format(Double.parseDouble(String.valueOf(val)));
+        ventastext.setText("Ventas : $ " +  formato.format(Integer.parseInt(String.valueOf(val))));
+    }
+
+    @Override
+    public void onNothingSelected() {
+        Log.i("PieChart", "nothing selected");
     }
 
     private void stilo_grafica_pie(){
         chart.setUsePercentValues(true);
         chart.getDescription().setEnabled(false);
+
         chart.setExtraOffsets(5, 10, 5, 5);
 
         chart.setDragDecelerationFrictionCoef(0.95f);
 
-       /* chart.setCenterTextTypeface();
-        chart.setCenterText(generateCenterSpannableText());*/
+       //* chart.setCenterTextTypeface();
+
 
         chart.setDrawHoleEnabled(true);
         chart.setHoleColor(Color.TRANSPARENT);
@@ -165,7 +211,7 @@ public class MainFragment extends Fragment {
         chart.setTransparentCircleAlpha(110);
 
         // chart.setHoleRadius(58f);
-        chart.setHoleRadius(30f);
+        chart.setHoleRadius(38f);
         //chart.setTransparentCircleRadius(61f);
         chart.setTransparentCircleRadius(45f);
 
@@ -225,8 +271,8 @@ public class MainFragment extends Fragment {
             // enable scaling and dragging
             chartL.setDragEnabled(true);
             chartL.setScaleEnabled(true);
-            // chart.setScaleXEnabled(true);
-            // chart.setScaleYEnabled(true);
+            chartL.setScaleXEnabled(true);
+            chartL.setScaleYEnabled(true);
 
             // force pinch zoom along both axis
             chartL.setPinchZoom(true);
@@ -235,7 +281,7 @@ public class MainFragment extends Fragment {
         XAxis xAxis;
         {   // // X-Axis Style // //
             xAxis = chartL.getXAxis();
-
+            xAxis.setLabelRotationAngle(45f);
             // vertical grid lines
             xAxis.enableGridDashedLine(10f, 10f, 0f);
         }
@@ -251,7 +297,7 @@ public class MainFragment extends Fragment {
             yAxis.enableGridDashedLine(10f, 10f, 0f);
 
             // axis range
-            yAxis.setAxisMaximum(200f);
+            yAxis.setAxisMaximum(90000000f);
             yAxis.setAxisMinimum(0f);
         }
 
@@ -264,7 +310,25 @@ public class MainFragment extends Fragment {
             llXAxis.setTextSize(10f);
           //  llXAxis.setTypeface(tfRegular);
 
-            LimitLine ll1 = new LimitLine(150f, "Upper Limit");
+            //consultar limite ventas dia
+            DBHelper admin=new DBHelper(this.getContext(),nombre_DB,null,1);
+            /*Abrimos la base de datos para escritura*/
+            SQLiteDatabase db=admin.getWritableDatabase();
+            Cursor cursor=db.rawQuery("SELECT distinct dias_habiles FROM presupuestoventas",null);
+            int dias_ha ;
+            double limite = 0;
+            while (cursor.moveToNext()){
+                try {
+                    dias_ha =cursor.getInt(0);
+                   limite = ppto.getPresupuesto() / dias_ha;
+
+                }catch (Exception e){
+                    Toast.makeText(getContext(), "Error: "+e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            //LimitLine ll1 = new LimitLine(150f, "Upper Limit");
+            LimitLine ll1 = new LimitLine((float) limite, "Upper Limit");
             ll1.setLineWidth(2f);
             ll1.enableDashedLine(10f, 10f, 0f);
             ll1.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
@@ -289,7 +353,7 @@ public class MainFragment extends Fragment {
         Legend l = chartL.getLegend();
 
         // draw legend entries as lines
-        l.setForm(Legend.LegendForm.LINE);
+        l.setForm(Legend.LegendForm.CIRCLE);
     }
 
     private void setData(int count, float range) {
@@ -303,19 +367,20 @@ public class MainFragment extends Fragment {
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
         // the chart.
         for (int i = 0; i < count ; i++) {
-            entries.add(new PieEntry((float) ((Math.random() * range) + range / 5),
+            //entries.add(new PieEntry((float) ((Math.random() * range) + range / 5),
+            entries.add(new PieEntry((float) ((Math.random())),
                     parties[i % parties.length],
                     getResources().getDrawable(R.drawable.gohan_cara1)));
         }
 
-        PieDataSet dataSet = new PieDataSet(entries, "Election Results");
+        PieDataSet dataSet = new PieDataSet(entries, "Linea de producción");
 
         dataSet.setDrawIcons(false);
 
         dataSet.setSliceSpace(3f);
         dataSet.setIconsOffset(new MPPointF(0, 40));
         //dataSet.setSelectionShift(5f);
-        dataSet.setSelectionShift(20f);
+        dataSet.setSelectionShift(30f);
 
         // add a lot of colors
 
@@ -337,7 +402,7 @@ public class MainFragment extends Fragment {
         //dataSet.setSelectionShift(0f);
 
         PieData data = new PieData(dataSet);
-        data.setValueFormatter(new PercentFormatter());
+        //////data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(20f);
         data.setValueTextColor(Color.rgb(255,255,255));
         //data.setValueTypeface(tfLight);
@@ -351,16 +416,19 @@ public class MainFragment extends Fragment {
 
     private void setDataLine(int count, float range) {
 
-        ArrayList<Entry> values = new ArrayList<>();
-        ArrayList<String> xAxisValues = new ArrayList<>();
+        /*ArrayList<Entry> values = new ArrayList<>();
+        ArrayList<String> xAxisValues = new ArrayList<>();*/
 
-
-       for (int i = 0; i < count; i++) {
+//SE COMENTA EL FOR HASTA EL LINEDATASET SET 1 PARA INTENTAR LLENAR CON LOS DATOS DE LA BASE DE DATOS REAL
+ /*      for (int i = 0; i < count; i++) {
 
             float val = (float) (Math.random() * range) ;
             values.add(new Entry(i, val, getResources().getDrawable(R.drawable.gohan_cara1)));
            xAxisValues.add("Lun");
         }
+*/
+       cargar_ventas_dia();
+
 
         LineDataSet set1;
 
@@ -451,17 +519,46 @@ public class MainFragment extends Fragment {
         Cursor cursor=db.rawQuery("SELECT * FROM presupuestoventas",null);
         while (cursor.moveToNext()){
             try {
-                DecimalFormat formato = new DecimalFormat("#.###");
-                String val = cursor.getString(1);
-                String valorFormateado = formato.format(Integer.parseInt(val));
+                double porc ;
+                DecimalFormat formato = new DecimalFormat("#,###");
+                int val = cursor.getInt(1);
+                //String valorFormateado = formato.format(Integer.parseInt(val));
+                int valorFormateado = val;
                 ppto.setPresupuesto(valorFormateado);
-                p = Integer.parseInt(valorFormateado);
+                //p = Integer.parseInt(valorFormateado);
+                presupuestotext.setText("Presupusto : $ " +  formato.format(Integer.parseInt(String.valueOf(valorFormateado))));
+                int pendiente = ppto.getPresupuesto() - vend.getVenta() ;
+
+                String vta = String.valueOf(vend.getVenta());
+                String ppt = String.valueOf(ppto.getPresupuesto());
+                porc = (Double.parseDouble(vta) / Double.parseDouble(ppt))*100;
+                double por = porc;
+                pendientetext.setText("Pendiente : $ " + formato.format(Integer.parseInt(String.valueOf(pendiente))));
+                porcentajeventas.setText(formato.format(Double.parseDouble(String.valueOf(porc))) + "%");
             }catch (Exception e){
                 Toast.makeText(getContext(), "Error: "+e.getMessage(), Toast.LENGTH_LONG).show();
             }
         }
     }
 
+
+    public void cargar_ventas_dia(){
+        DBHelper admin=new DBHelper(this.getContext(),nombre_DB,null,1);
+        /*Abrimos la base de datos para escritura*/
+        SQLiteDatabase db=admin.getWritableDatabase();
+        Cursor cursor=db.rawQuery("SELECT * FROM ventasvendedor",null);
+        int i = 0;
+        while (cursor.moveToNext()){
+            try {
+                DecimalFormat formato = new DecimalFormat("#,###");
+                values.add(new Entry( i, cursor.getInt(2), getResources().getDrawable(R.drawable.gohan_cara1)));
+                xAxisValues.add(cursor.getString(1));
+                i++;
+            }catch (Exception e){
+                Toast.makeText(getContext(), "Error: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 
     public void consultarventas(){
         DBHelper admin=new DBHelper(this.getContext(),nombre_DB,null,1);
@@ -470,15 +567,33 @@ public class MainFragment extends Fragment {
         Cursor cursor=db.rawQuery("SELECT * FROM ventastot",null);
         while (cursor.moveToNext()){
             try {
-                DecimalFormat formato = new DecimalFormat("#.###");
-                String val = cursor.getString(1);
-                String valorFormateado = formato.format(Double.parseDouble(val));
-                vend.setVentas(valorFormateado);
-                v = Integer.parseInt(valorFormateado);
+                DecimalFormat formato = new DecimalFormat("#,###");
+                //System.out.println(formatoNumero.format(numero));
+                int val = cursor.getInt(1);
+                //String valorFormateado = formato.format(Double.parseDouble(val));
+                //vend.setVentas(valorFormateado);
+                vend.setVentas(val);
+                //v = Integer.parseInt(valorFormateado);
+                //ventastext.setText("Ventas : $ " +  valorFormateado);
+                ventastext.setText("Ventas : $ " +  formato.format(Integer.parseInt(String.valueOf(val))));
             }catch (Exception e){
                 Toast.makeText(getContext(), "Error: "+e.getMessage(), Toast.LENGTH_LONG).show();
             }
         }
     }
 
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
+    }
 }
