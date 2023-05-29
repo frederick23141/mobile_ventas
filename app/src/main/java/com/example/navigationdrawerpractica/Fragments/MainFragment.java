@@ -166,11 +166,14 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
             // Cargar el diseño para la orientación vertical
             //setContentView(R.layout.activity_main);
              view = inflater.inflate(R.layout.main_fragment, container, false);
+            chart =  view.findViewById(R.id.chart);
+            stilo_grafica_pie();
+            setData(5,180);
         }
 
 
         //View view = inflater.inflate(R.layout.main_fragment, container, false);
-        chart =  view.findViewById(R.id.chart);
+//        chart =  view.findViewById(R.id.chart);
         //chartL =  view.findViewById(R.id.chart2);
         ventastext = view.findViewById(R.id.txtventas);
         presupuestotext = view.findViewById(R.id.txtpptoventas);
@@ -181,8 +184,8 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
 
         consultarventas();
         consultarpresupuesto();
-        stilo_grafica_pie();
-        setData(5,180);
+//        stilo_grafica_pie();
+//        setData(5,180);
 //        stilo_grafica_dia();
 //        setDataLine(12,80000000);
         return view;
@@ -557,14 +560,14 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
                 int valorFormateado = val;
                 ppto.setPresupuesto(valorFormateado);
                 //p = Integer.parseInt(valorFormateado);
-                presupuestotext.setText("Presupusto : $ " +  formato.format(Integer.parseInt(String.valueOf(valorFormateado))));
+                presupuestotext.setText(" $ " +  formato.format(Integer.parseInt(String.valueOf(valorFormateado))));
                 int pendiente = ppto.getPresupuesto() - vend.getVenta() ;
 
                 String vta = String.valueOf(vend.getVenta());
                 String ppt = String.valueOf(ppto.getPresupuesto());
                 porc = (Double.parseDouble(vta) / Double.parseDouble(ppt))*100;
                 double por = porc;
-                pendientetext.setText("Pendiente : $ " + formato.format(Integer.parseInt(String.valueOf(pendiente))));
+                pendientetext.setText(" $ " + formato.format(Integer.parseInt(String.valueOf(pendiente))));
                 porcentajeventas.setText(formato.format(Double.parseDouble(String.valueOf(porc))) + "%");
             }catch (Exception e){
                 Toast.makeText(getContext(), "Error: "+e.getMessage(), Toast.LENGTH_LONG).show();
@@ -605,7 +608,7 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
                 vend.setVentas(val);
                 //v = Integer.parseInt(valorFormateado);
                 //ventastext.setText("Ventas : $ " +  valorFormateado);
-                ventastext.setText("Ventas : $ " +  formato.format(Integer.parseInt(String.valueOf(val))));
+                ventastext.setText(" $ " +  formato.format(Integer.parseInt(String.valueOf(val))));
             }catch (Exception e){
                 Toast.makeText(getContext(), "Error: "+e.getMessage(), Toast.LENGTH_LONG).show();
             }

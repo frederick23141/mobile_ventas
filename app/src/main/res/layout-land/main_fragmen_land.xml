@@ -10,110 +10,64 @@
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart2"
-        android:layout_width="725dp"
-        android:layout_height="370dp"
+        android:layout_width="1271dp"
+        android:layout_height="523dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.055"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/chart"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_marginBottom="776dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <TextView
+        android:id="@+id/txtventas"
+        android:layout_width="376dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppinsbold"
+        android:text="Ventas : $ 150.00.000"
+        android:textColor="@color/colorPrimary"
+        android:textSize="26dp"
+        app:layout_constraintBottom_toTopOf="@+id/chart2"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <RatingBar
-        android:id="@+id/ratingBar4"
+    <TextView
+        android:id="@+id/txtpptoventas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:max="100"
-        android:numStars="5"
-        android:progress="16"
-        android:progressTint="@color/color_app"
-        android:stepSize="0"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chart" />
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="4dp"
+        android:fontFamily="@font/poppinsbold"
+        android:text="Presupuesto : $ 150.00.000"
+        android:textColor="@color/black"
+        android:textSize="26dp"
+        app:layout_constraintBottom_toTopOf="@+id/chart2"
+        app:layout_constraintEnd_toStartOf="@+id/txtpendiente"
+        app:layout_constraintHorizontal_bias="0.223"
+        app:layout_constraintStart_toEndOf="@+id/txtventas" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="550dp"
-        android:layout_height="300dp"
-        android:orientation="vertical"
+    <TextView
+        android:id="@+id/txtpendiente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:fontFamily="@font/poppinsbold"
+        android:text="Pendiente : $75.000.000 "
+        android:textColor="@color/colorAccent"
+        android:textSize="26dp"
+        app:layout_constraintBottom_toTopOf="@+id/chart2"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/txtporcentajeventa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="44dp"
+        android:fontFamily="@font/poppinsbold"
+        android:text="76 %"
+        android:textColor="@color/green"
+        android:textSize="70dp"
         app:layout_constraintBottom_toTopOf="@+id/chart2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/visa">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="20dp">
-
-            <TextView
-                android:id="@+id/txtpptoventas"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:fontFamily="@font/poppinsbold"
-                android:text="Presupuesto : $ 150.00.000"
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.045"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.753" />
-
-            <TextView
-                android:id="@+id/txtporcentajeventa"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppinsbold"
-                android:text="76 %"
-                android:textColor="@color/green"
-                android:textSize="70dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.954"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.582" />
-
-            <TextView
-                android:id="@+id/txtpendiente"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppinsbold"
-                android:text="Pendiente : $75.000.000 "
-                android:textColor="@color/colorAccent"
-                android:textSize="18dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.055"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtpptoventas"
-                app:layout_constraintVertical_bias="0.407" />
-
-            <TextView
-                android:id="@+id/txtventas"
-                android:layout_width="376dp"
-                android:layout_height="48dp"
-                android:layout_marginBottom="124dp"
-                android:fontFamily="@font/poppinsbold"
-                android:text="Ventas : $ 150.00.000"
-                android:textColor="@color/colorPrimary"
-                android:textSize="26dp"
-                app:layout_constraintBottom_toTopOf="@+id/txtpptoventas"
-                tools:layout_editor_absoluteX="11dp" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </LinearLayout>
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

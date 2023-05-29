@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_light"
+    android:background="@color/fondo_dashboard_card"
     android:padding="10dp"
     tools:ignore="MissingDefaultResource">
 
@@ -21,147 +21,117 @@
         android:id="@+id/ratingBar4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="92dp"
         android:max="100"
         android:numStars="5"
         android:progress="16"
         android:progressTint="@color/color_app"
         android:stepSize="0"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.089"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chart" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="550dp"
-        android:layout_height="300dp"
-        android:layout_marginBottom="256dp"
-        android:background="@drawable/visa"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="20dp">
-
-            <TextView
-                android:id="@+id/txtpptoventas"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:fontFamily="@font/poppinsbold"
-                android:text="Presupuesto : $ 150.00.000"
-                android:textColor="@color/black"
-                android:textSize="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.045"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.753" />
-
-            <TextView
-                android:id="@+id/txtporcentajeventa"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppinsbold"
-                android:text="76 %"
-                android:textColor="@color/green"
-                android:textSize="70dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.954"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.582" />
-
-            <TextView
-                android:id="@+id/txtpendiente"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppinsbold"
-                android:text="Pendiente : $75.000.000 "
-                android:textColor="@color/colorAccent"
-                android:textSize="18dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.055"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtpptoventas"
-                app:layout_constraintVertical_bias="0.407" />
-
-            <TextView
-                android:id="@+id/txtventas"
-                android:layout_width="376dp"
-                android:layout_height="48dp"
-                android:layout_marginBottom="124dp"
-                android:fontFamily="@font/poppinsbold"
-                android:text="Ventas : $ 150.00.000"
-                android:textColor="@color/colorPrimary"
-                android:textSize="26dp"
-                app:layout_constraintBottom_toTopOf="@+id/txtpptoventas"
-                tools:layout_editor_absoluteX="11dp" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="716dp"
-        android:layout_height="228dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/ratingBar4">
+
 
         <com.google.android.material.card.MaterialCardView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             app:cardCornerRadius="8dp"
             app:cardElevation="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="16dp">
 
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:src="@drawable/ic_person"
-                    android:scaleType="centerCrop"/>
+                    android:layout_gravity="center"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_send_money" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginStart="16dp">
+                    android:layout_marginStart="16dp"
+                    android:orientation="vertical">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Título"
-                        android:textSize="18sp"
-                        android:textColor="#000000"/>
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Descripción"
-                        android:textSize="14sp"
-                        android:textColor="#888888"/>
+                        <TextView
+                            android:layout_width="220dp"
+                            android:layout_height="wrap_content"
+                            android:text="Ventas:"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="28sp" />
 
-                    <TextView
+                        <TextView
+                            android:id="@+id/txtventas"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="$ 21"
+                            android:textSize="28sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Fecha"
-                        android:textSize="12sp"
-                        android:textColor="#888888"/>
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="220dp"
+                            android:layout_height="wrap_content"
+                            android:text="Presupuesto:"
+                            android:textColor="#888888"
+                            android:textSize="26sp" />
+
+                        <TextView
+                            android:id="@+id/txtpptoventas"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="$ 50"
+                            android:textColor="#000000"
+                            android:textSize="26sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="220dp"
+                            android:layout_height="wrap_content"
+                            android:text="Pendiente:"
+                            android:textColor="#888888"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/txtpendiente"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="$ 29"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="24sp" />
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -169,6 +139,126 @@
 
         </com.google.android.material.card.MaterialCardView>
 
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_find_atm" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="220dp"
+                            android:layout_height="wrap_content"
+                            android:text="Recaudo"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="28sp" />
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="$ 21"
+                            android:textSize="28sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="220dp"
+                            android:layout_height="wrap_content"
+                            android:text="Presupuesto"
+                            android:textColor="#888888"
+                            android:textSize="26sp" />
+
+                        <TextView
+                            android:id="@+id/textView5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="$ 50"
+                            android:textSize="26sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="220dp"
+                            android:layout_height="wrap_content"
+                            android:text="Pendiente"
+                            android:textColor="#888888"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/textView6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="$ 29"
+                            android:textSize="24sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtporcentajeventa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppinsbold"
+        android:text="76 %"
+        android:textColor="@color/green"
+        android:textSize="70dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.945"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.925"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
