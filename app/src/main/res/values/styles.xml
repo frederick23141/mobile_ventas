@@ -1,7 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
 
-    <style name="AppThemeDark" parent="Theme.AppCompat.Light.NoActionBar">
+   <!-- <style name="AppThemeDark" parent="Theme.AppCompat.Light.NoActionBar"> -->
+    <style name="AppThemeDark" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/green_app</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
