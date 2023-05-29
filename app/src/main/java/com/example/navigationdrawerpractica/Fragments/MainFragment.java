@@ -2,6 +2,7 @@ package com.example.navigationdrawerpractica.Fragments;
 import static androidx.core.content.res.ResourcesCompat.getColor;
 
 import android.annotation.SuppressLint;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
@@ -150,42 +151,65 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.main_fragment, container, false);
+        int orientation = getResources().getConfiguration().orientation;
+        View view;
+        vend = new Vendedor();
+        ppto = new Presupuesto();
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            // Cargar el diseño para la orientación horizontal
+            //setContentView(R.layout.activity_main_land);
+             view = inflater.inflate(R.layout.main_fragmen_land, container, false);
+            chartL =  view.findViewById(R.id.chart2);
+            stilo_grafica_dia();
+            setDataLine(12,80000000);
+        } else {
+            // Cargar el diseño para la orientación vertical
+            //setContentView(R.layout.activity_main);
+             view = inflater.inflate(R.layout.main_fragment, container, false);
+        }
+
+
+        //View view = inflater.inflate(R.layout.main_fragment, container, false);
         chart =  view.findViewById(R.id.chart);
-        chartL =  view.findViewById(R.id.chart2);
+        //chartL =  view.findViewById(R.id.chart2);
         ventastext = view.findViewById(R.id.txtventas);
         presupuestotext = view.findViewById(R.id.txtpptoventas);
         pendientetext = view.findViewById(R.id.txtpendiente);
         porcentajeventas = view.findViewById(R.id.txtporcentajeventa);
-        vend = new Vendedor();
-        ppto = new Presupuesto();
-
-
+//        vend = new Vendedor();
+//        ppto = new Presupuesto();
 
         consultarventas();
         consultarpresupuesto();
         stilo_grafica_pie();
         setData(5,180);
-        stilo_grafica_dia();
-        setDataLine(12,80000000);
+//        stilo_grafica_dia();
+//        setDataLine(12,80000000);
         return view;
-
     }
 
     @Override
     public void onValueSelected(Entry e, Highlight h) {
+        try {
+            if (e == null) {
+                System.out.println("Valor null XD");
+                return;
+            }else {
+                Log.i("VAL SELECTED",
+                        "Value: " + e.getY() + ", index: " + h.getX()
+                                + ", DataSet index: " + h.getDataSetIndex());
 
-        if (e == null)
-            return;
-        Log.i("VAL SELECTED",
-                "Value: " + e.getY() + ", index: " + h.getX()
-                        + ", DataSet index: " + h.getDataSetIndex());
+                DecimalFormat formato = new DecimalFormat("#,###");
+                //System.out.println(formatoNumero.format(numero));
+                int val = (int) e.getY();
+                String valorFormateado = formato.format(Double.parseDouble(String.valueOf(val)));
+                ventastext.setText("Ventas : $ " +  formato.format(Integer.parseInt(String.valueOf(val))));
+            }
+        }catch (Exception ex){
+            System.out.println("Error en el valor seleccionado");
+        }
 
-        DecimalFormat formato = new DecimalFormat("#,###");
-        //System.out.println(formatoNumero.format(numero));
-        int val = (int) e.getY();
-        String valorFormateado = formato.format(Double.parseDouble(String.valueOf(val)));
-        ventastext.setText("Ventas : $ " +  formato.format(Integer.parseInt(String.valueOf(val))));
+
     }
 
     @Override
@@ -328,7 +352,7 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
             }
 
             //LimitLine ll1 = new LimitLine(150f, "Upper Limit");
-            LimitLine ll1 = new LimitLine((float) limite, "Upper Limit");
+            LimitLine ll1 = new LimitLine((float) limite, "Venta por dia");
             ll1.setLineWidth(2f);
             ll1.enableDashedLine(10f, 10f, 0f);
             ll1.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
@@ -355,7 +379,6 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         // draw legend entries as lines
         l.setForm(Legend.LegendForm.CIRCLE);
     }
-
     private void setData(int count, float range) {
         ArrayList<PieEntry> entries = new ArrayList<>();
 
@@ -363,12 +386,22 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
                 "Alambre brillante", "Puas", "Alambre galvanizado", "Tornillos", "Clavos"
         };
 
+        final double[] datos_parties = new double[]{
+          2500,3500,5000,16000,9800
+        };
 
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
         // the chart.
-        for (int i = 0; i < count ; i++) {
+        /*for (int i = 0; i < 5 ; i++) {
             //entries.add(new PieEntry((float) ((Math.random() * range) + range / 5),
             entries.add(new PieEntry((float) ((Math.random())),
+                    parties[i % parties.length],
+                    getResources().getDrawable(R.drawable.gohan_cara1)));
+        }*/
+
+        for (int i = 0; i < 5 ; i++) {
+            //entries.add(new PieEntry((float) ((Math.random() * range) + range / 5),
+            entries.add(new PieEntry((float) datos_parties[i],
                     parties[i % parties.length],
                     getResources().getDrawable(R.drawable.gohan_cara1)));
         }
@@ -443,7 +476,7 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
             chartL.notifyDataSetChanged();
         } else {
             // create a dataset and give it a type
-            set1 = new LineDataSet(values, "DataSet 1");
+            set1 = new LineDataSet(values, "Ventas Diarias");
 
             set1.setDrawIcons(false);
 
@@ -509,8 +542,6 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         }
     }
 
-
-
     public void consultarpresupuesto(){
 
         DBHelper admin=new DBHelper(this.getContext(),nombre_DB,null,1);
@@ -540,7 +571,6 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
             }
         }
     }
-
 
     public void cargar_ventas_dia(){
         DBHelper admin=new DBHelper(this.getContext(),nombre_DB,null,1);

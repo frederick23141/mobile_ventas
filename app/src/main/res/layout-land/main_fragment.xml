@@ -8,20 +8,41 @@
     android:padding="10dp"
     tools:ignore="MissingDefaultResource">
 
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/chart"
-        android:layout_width="778dp"
-        android:layout_height="488dp"
-        android:layout_marginBottom="712dp"
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart2"
+        android:layout_width="711dp"
+        android:layout_height="87dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.055"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart"
+        android:layout_width="760dp"
+        android:layout_height="503dp"
+        android:layout_marginBottom="52dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent" />-->
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/chart"
+        android:layout_width="558dp"
+        android:layout_height="151dp"
+        android:layout_marginBottom="244dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.433"
         app:layout_constraintStart_toStartOf="parent" />
 
     <RatingBar
         android:id="@+id/ratingBar4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
         android:max="100"
         android:numStars="5"
         android:progress="16"
@@ -32,16 +53,15 @@
         app:layout_constraintTop_toBottomOf="@+id/chart" />
 
 
-
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="550dp"
-        android:layout_height="300dp"
-        android:layout_marginBottom="256dp"
+        android:layout_width="308dp"
+        android:layout_height="89dp"
         android:background="@drawable/visa"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/chart2"
         app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -94,20 +114,19 @@
                 app:layout_constraintTop_toBottomOf="@+id/txtpptoventas"
                 app:layout_constraintVertical_bias="0.407" />
 
-            <TextView
-                android:id="@+id/txtventas"
-                android:layout_width="376dp"
-                android:layout_height="48dp"
-                android:layout_marginBottom="124dp"
-                android:fontFamily="@font/poppinsbold"
-                android:text="Ventas : $ 150.00.000"
-                android:textColor="@color/colorPrimary"
-                android:textSize="26dp"
-                app:layout_constraintBottom_toTopOf="@+id/txtpptoventas"
-                tools:layout_editor_absoluteX="11dp" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtventas"
+        android:layout_width="376dp"
+        android:layout_height="48dp"
+        android:fontFamily="@font/poppinsbold"
+        android:text="Ventas : $ 150.00.000"
+        android:textColor="@color/colorPrimary"
+        android:textSize="26dp"
+        tools:layout_editor_absoluteX="188dp"
+        tools:layout_editor_absoluteY="148dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
