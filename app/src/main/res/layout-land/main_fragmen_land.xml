@@ -8,10 +8,58 @@
     android:padding="10dp"
     tools:ignore="MissingDefaultResource">
 
+    <pl.pawelkleczkowski.customgauge.CustomGauge
+        android:id="@+id/gauge3"
+        android:layout_width="306dp"
+        android:layout_height="242dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        app:gaugeEndValue="120"
+        app:gaugePointEndColor="@color/radial_orange"
+        app:gaugePointStartColor="@color/radial_orange"
+        app:gaugeStartAngle="135"
+        app:gaugeStartValue="0"
+        app:gaugeStrokeCap="ROUND"
+        app:gaugeStrokeColor="@color/md_grey_400"
+        app:gaugeStrokeWidth="30dp"
+        app:gaugeSweepAngle="270"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.017"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <pl.pawelkleczkowski.customgauge.CustomGauge
+        android:id="@+id/gauge"
+        android:layout_width="306dp"
+        android:layout_height="242dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        app:gaugeEndValue="120"
+        app:gaugePointEndColor="@color/radial_blue"
+        app:gaugePointStartColor="@color/radial_blue"
+        app:gaugeStartAngle="135"
+        app:gaugeStartValue="0"
+        app:gaugeStrokeCap="ROUND"
+        app:gaugeStrokeColor="@color/md_grey_400"
+        app:gaugeStrokeWidth="30dp"
+        app:gaugeSweepAngle="270"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.943"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart2"
-        android:layout_width="1271dp"
-        android:layout_height="523dp"
+        android:layout_width="1301dp"
+        android:layout_height="446dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,19 +103,5 @@
         android:textSize="26dp"
         app:layout_constraintBottom_toTopOf="@+id/chart2"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/txtporcentajeventa"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="44dp"
-        android:fontFamily="@font/poppinsbold"
-        android:text="76 %"
-        android:textColor="@color/green"
-        android:textSize="70dp"
-        app:layout_constraintBottom_toTopOf="@+id/chart2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.516"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

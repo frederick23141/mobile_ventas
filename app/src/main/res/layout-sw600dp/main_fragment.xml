@@ -10,25 +10,26 @@
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/chart"
-        android:layout_width="778dp"
-        android:layout_height="488dp"
-        android:layout_marginBottom="712dp"
+        android:layout_width="779dp"
+        android:layout_height="676dp"
+        android:layout_marginBottom="492dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="parent" />
 
     <RatingBar
         android:id="@+id/ratingBar4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="20dp"
         android:max="100"
         android:numStars="5"
         android:progress="16"
         android:progressTint="@color/color_app"
         android:stepSize="0"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintHorizontal_bias="0.455"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chart" />
 
@@ -236,29 +237,5 @@
         </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
-
-    <pl.pawelkleczkowski.customgauge.CustomGauge
-        android:id="@+id/gauge2"
-        android:layout_width="382dp"
-        android:layout_height="370dp"
-        android:layout_below="@+id/gauge1"
-        android:layout_centerHorizontal="true"
-        android:paddingLeft="10dp"
-        android:paddingTop="10dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="10dp"
-        app:gaugeEndValue="120"
-        app:gaugePointEndColor="@color/md_green_300"
-        app:gaugePointStartColor="@color/md_orange_300"
-        app:gaugeStartAngle="135"
-        app:gaugeStartValue="0"
-        app:gaugeStrokeCap="ROUND"
-        app:gaugeStrokeColor="@color/md_grey_400"
-        app:gaugeStrokeWidth="50dp"
-        app:gaugeSweepAngle="270"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

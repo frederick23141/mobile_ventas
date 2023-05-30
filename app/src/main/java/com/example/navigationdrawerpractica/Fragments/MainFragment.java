@@ -151,6 +151,7 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
     private Button mButtonDays, mButtonWeeks, mButtonMonths;
 
     private CustomGauge gauge2;
+    private CustomGauge gauge3;
 
     ArrayList<Entry> values = new ArrayList<>();
     ArrayList<String> xAxisValues = new ArrayList<>();
@@ -176,6 +177,9 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
             chart =  view.findViewById(R.id.chart);
             stilo_grafica_pie();
             setData(5,180);
+//            gauge2 = view.findViewById(R.id.gauge2);
+//            gauge3 = view.findViewById(R.id.gauge3);
+//            cargar_gauge();
         }
 
 
@@ -187,14 +191,14 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         pendientetext = view.findViewById(R.id.txtpendiente);
         porcentajeventas = view.findViewById(R.id.txtporcentajeventa);
 
-        gauge2 = view.findViewById(R.id.gauge2);
+
 //        vend = new Vendedor();
 //        ppto = new Presupuesto();
 
         consultarventas();
         consultarpresupuesto();
 
-        cargar_gauge();
+
 //        stilo_grafica_pie();
 //        setData(5,180);
 //        stilo_grafica_dia();
@@ -205,6 +209,7 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
     public void cargar_gauge(){
 
                                 gauge2.setValue(100);
+                                gauge3.setValue(110);
 //                                text2.setText(String.format(Locale.getDefault(), "%1d/%2d", gauge2.getValue(), gauge2.getEndValue()));
 
     }
@@ -565,7 +570,7 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
     }
 
     public void consultarpresupuesto(){
-
+        int orientation = getResources().getConfiguration().orientation;
         DBHelper admin=new DBHelper(this.getContext(),nombre_DB,null,1);
         /*Abrimos la base de datos para escritura*/
         SQLiteDatabase db=admin.getWritableDatabase();
@@ -587,7 +592,14 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
                 porc = (Double.parseDouble(vta) / Double.parseDouble(ppt))*100;
                 double por = porc;
                 pendientetext.setText(" $ " + formato.format(Integer.parseInt(String.valueOf(pendiente))));
-                chart.setCenterText(formato.format(Double.parseDouble(String.valueOf(porc))) + "%");
+//                /chart.setCenterText(formato.format(Double.parseDouble(String.valueOf(porc))) + "%");
+
+                if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+                } else {
+                    chart.setCenterText(formato.format(Double.parseDouble(String.valueOf(porc))) + "%");
+                }
+
 //                porcentajeventas.setText(formato.format(Double.parseDouble(String.valueOf(porc))) + "%");
             }catch (Exception e){
                 Toast.makeText(getContext(), "Error: "+e.getMessage(), Toast.LENGTH_LONG).show();

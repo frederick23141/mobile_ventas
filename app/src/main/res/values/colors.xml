@@ -25,4 +25,6 @@
     <color name="fondo_oscuro">#263138</color>
     <color name="fondo_dashboard">#2B2D5B</color>
     <color name="fondo_dashboard_card">#232450</color>
+    <color name="radial_orange">#fd9407</color>
+    <color name="radial_blue">#10898b</color>
 </resources>
