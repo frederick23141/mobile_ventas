@@ -31,7 +31,10 @@ import com.github.mikephil.charting.formatter.DefaultFillFormatter;
 import com.github.mikephil.charting.formatter.IFillFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -134,6 +137,9 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
     TextView pendientetext;
     TextView ventastext;
     TextView porcentajeventas;
+    TextView porc_ventas;
+    TextView porc_kilos;
+    TextView porc_rec;
     Presupuesto ppto;
     Vendedor vend;
     Double valorppto;
@@ -150,6 +156,7 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
     private LineChart mLineChart;
     private Button mButtonDays, mButtonWeeks, mButtonMonths;
 
+    private CustomGauge gauge1;
     private CustomGauge gauge2;
     private CustomGauge gauge3;
 
@@ -170,6 +177,14 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
             chartL =  view.findViewById(R.id.chart2);
             stilo_grafica_dia();
             setDataLine(12,80000000);
+            gauge1 = view.findViewById(R.id.gauge1);
+            gauge2 = view.findViewById(R.id.gauge2);
+            gauge3 = view.findViewById(R.id.gauge3);
+            porc_ventas = view.findViewById(R.id.txt_proc_ventas);
+            porc_kilos = view.findViewById(R.id.txt_porc_kilos);
+            porc_rec = view.findViewById(R.id.txt_porc_rec);
+
+            cargar_gauge();
         } else {
             // Cargar el diseño para la orientación vertical
             //setContentView(R.layout.activity_main);
@@ -208,9 +223,12 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
 
     public void cargar_gauge(){
 
-                                gauge2.setValue(100);
+                                gauge1.setValue(90);
+                                gauge2.setValue(80);
                                 gauge3.setValue(110);
-//                                text2.setText(String.format(Locale.getDefault(), "%1d/%2d", gauge2.getValue(), gauge2.getEndValue()));
+                                porc_ventas.setText(String.format(Locale.getDefault(), "%1d/%2d", gauge1.getValue(), gauge1.getEndValue()));
+                                porc_kilos.setText(String.format(Locale.getDefault(), "%1d/%2d", gauge2.getValue(), gauge2.getEndValue()));
+                                porc_rec.setText(String.format(Locale.getDefault(), "%1d/%2d", gauge3.getValue(), gauge3.getEndValue()));
 
     }
 
@@ -617,7 +635,7 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
             try {
                 DecimalFormat formato = new DecimalFormat("#,###");
                 values.add(new Entry( i, cursor.getInt(2), getResources().getDrawable(R.drawable.gohan_cara1)));
-                xAxisValues.add(cursor.getString(1));
+               xAxisValues.add(cursor.getString(1));
                 i++;
             }catch (Exception e){
                 Toast.makeText(getContext(), "Error: "+e.getMessage(), Toast.LENGTH_LONG).show();

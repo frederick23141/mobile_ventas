@@ -27,7 +27,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ConfigFragment extends Fragment {
 
@@ -368,7 +373,7 @@ public class ConfigFragment extends Fragment {
                     String vendedor;
                     String presupuesto;
 
-                    String sqlstatement = "SELECT        TOP (100) PERCENT fec, SUM(Vr_total) AS vta_dia\n" +
+                    String sqlstatement = "SELECT  CONVERT(varchar,fec,111), SUM(Vr_total) AS vta_dia\n" +
                             "FROM            dbo.Bi_Auditoria_vtas3\n" +
                             "WHERE        (vendedor = ? ) AND (Mes = MONTH(GETDATE())) AND (Año = YEAR(GETDATE()))\n" +
                             "GROUP BY fec\n" +
@@ -378,14 +383,18 @@ public class ConfigFragment extends Fragment {
                     preparedStatement.setString(1, vend);
                     ResultSet set = preparedStatement.executeQuery();
 
+                    String fechab;
+
                     while (set.next()){
                         Toast.makeText(this.getContext(), "insertando", Toast.LENGTH_SHORT).show();
                         /*Creamos un objeto contentvalues y instanciamos*/
                         ContentValues values = new ContentValues();
                         /*capturamos valores*/
                         values.put("vendedor",vend.toString());
-                        values.put("fecha",set.getString(1));
+                        values.put("fecha", set.getString(1));
                         values.put("ventas",set.getInt(2));
+//                        values.put("fecha",set.getString(1));
+//                        values.put("ventas",set.getInt(2));
 
                         /*llamamos al insert damos el nombre de la base de datos
                          * y los valores*/
