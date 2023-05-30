@@ -89,41 +89,42 @@
 
     <TextView
         android:id="@+id/txtventas"
-        android:layout_width="305dp"
-        android:layout_height="49dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
         android:fontFamily="@font/poppinsbold"
         android:text="Ventas : $ 150.00.000"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
-        android:textSize="26dp"
+        android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="@+id/gauge1"
         app:layout_constraintStart_toStartOf="@+id/gauge1"
         app:layout_constraintTop_toTopOf="@+id/gauge1"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.899" />
 
     <TextView
         android:id="@+id/txtpptoventas"
-        android:layout_width="311dp"
-        android:layout_height="31dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/poppinsbold"
         android:text="Presupuesto : $ 150.00.000"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/gauge1"
-        tools:layout_editor_absoluteX="20dp" />
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="@+id/txtventas"
+        app:layout_constraintTop_toBottomOf="@+id/txtventas" />
 
     <TextView
         android:id="@+id/txtpendiente"
-        android:layout_width="310dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/poppinsbold"
         android:text="Pendiente : $75.000.000 "
         android:textAlignment="center"
         android:textColor="@color/colorAccent"
-        android:textSize="16dp"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="@+id/txtpptoventas"
         app:layout_constraintTop_toBottomOf="@+id/txtpptoventas"
-        tools:layout_editor_absoluteX="17dp"
         tools:visibility="visible" />
 
     <TextView

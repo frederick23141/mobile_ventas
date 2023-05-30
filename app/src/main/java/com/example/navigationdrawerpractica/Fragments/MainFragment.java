@@ -602,14 +602,14 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
                 int valorFormateado = val;
                 ppto.setPresupuesto(valorFormateado);
                 //p = Integer.parseInt(valorFormateado);
-                presupuestotext.setText(" $ " +  formato.format(Integer.parseInt(String.valueOf(valorFormateado))));
+                presupuestotext.setText("Pto:    $ " +  formato.format(Integer.parseInt(String.valueOf(valorFormateado))));
                 int pendiente = ppto.getPresupuesto() - vend.getVenta() ;
 
                 String vta = String.valueOf(vend.getVenta());
                 String ppt = String.valueOf(ppto.getPresupuesto());
                 porc = (Double.parseDouble(vta) / Double.parseDouble(ppt))*100;
                 double por = porc;
-                pendientetext.setText(" $ " + formato.format(Integer.parseInt(String.valueOf(pendiente))));
+                pendientetext.setText("Pte:    $ " + formato.format(Integer.parseInt(String.valueOf(pendiente))));
 //                /chart.setCenterText(formato.format(Double.parseDouble(String.valueOf(porc))) + "%");
 
                 if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -658,7 +658,7 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
                 vend.setVentas(val);
                 //v = Integer.parseInt(valorFormateado);
                 //ventastext.setText("Ventas : $ " +  valorFormateado);
-                ventastext.setText(" $ " +  formato.format(Integer.parseInt(String.valueOf(val))));
+                ventastext.setText("Vtas:    $ " +  formato.format(Integer.parseInt(String.valueOf(val))));
             }catch (Exception e){
                 Toast.makeText(getContext(), "Error: "+e.getMessage(), Toast.LENGTH_LONG).show();
             }
