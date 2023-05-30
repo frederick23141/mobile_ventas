@@ -39,6 +39,7 @@ import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.renderscript.ScriptGroup;
 import android.text.Layout;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -115,7 +116,11 @@ import com.github.mikephil.charting.data.LineDataSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+
+import pl.pawelkleczkowski.customgauge.CustomGauge;
+
 
 public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeListener,
         OnChartValueSelectedListener {
@@ -144,6 +149,8 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
     LineChart chartL;
     private LineChart mLineChart;
     private Button mButtonDays, mButtonWeeks, mButtonMonths;
+
+    private CustomGauge gauge2;
 
     ArrayList<Entry> values = new ArrayList<>();
     ArrayList<String> xAxisValues = new ArrayList<>();
@@ -179,16 +186,27 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         presupuestotext = view.findViewById(R.id.txtpptoventas);
         pendientetext = view.findViewById(R.id.txtpendiente);
         porcentajeventas = view.findViewById(R.id.txtporcentajeventa);
+
+        gauge2 = view.findViewById(R.id.gauge2);
 //        vend = new Vendedor();
 //        ppto = new Presupuesto();
 
         consultarventas();
         consultarpresupuesto();
+
+        cargar_gauge();
 //        stilo_grafica_pie();
 //        setData(5,180);
 //        stilo_grafica_dia();
 //        setDataLine(12,80000000);
         return view;
+    }
+
+    public void cargar_gauge(){
+
+                                gauge2.setValue(100);
+//                                text2.setText(String.format(Locale.getDefault(), "%1d/%2d", gauge2.getValue(), gauge2.getEndValue()));
+
     }
 
     @Override
