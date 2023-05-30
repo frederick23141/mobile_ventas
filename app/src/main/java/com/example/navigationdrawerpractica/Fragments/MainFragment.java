@@ -412,7 +412,8 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         PieDataSet dataSet = new PieDataSet(entries, "Linea de producción");
 
         dataSet.setDrawIcons(false);
-
+        chart.setCenterTextColor(Color.WHITE);
+        chart.setCenterTextSize(56f);
         dataSet.setSliceSpace(3f);
         dataSet.setIconsOffset(new MPPointF(0, 40));
         //dataSet.setSelectionShift(5f);
@@ -438,7 +439,7 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         //dataSet.setSelectionShift(0f);
 
         PieData data = new PieData(dataSet);
-        //////data.setValueFormatter(new PercentFormatter());
+        data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(20f);
         data.setValueTextColor(Color.rgb(255,255,255));
         //data.setValueTypeface(tfLight);
@@ -568,7 +569,8 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
                 porc = (Double.parseDouble(vta) / Double.parseDouble(ppt))*100;
                 double por = porc;
                 pendientetext.setText(" $ " + formato.format(Integer.parseInt(String.valueOf(pendiente))));
-                porcentajeventas.setText(formato.format(Double.parseDouble(String.valueOf(porc))) + "%");
+                chart.setCenterText(formato.format(Double.parseDouble(String.valueOf(porc))) + "%");
+//                porcentajeventas.setText(formato.format(Double.parseDouble(String.valueOf(porc))) + "%");
             }catch (Exception e){
                 Toast.makeText(getContext(), "Error: "+e.getMessage(), Toast.LENGTH_LONG).show();
             }
