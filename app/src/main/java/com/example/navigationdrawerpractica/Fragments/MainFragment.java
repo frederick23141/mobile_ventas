@@ -162,11 +162,12 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
 
     ArrayList<Entry> values = new ArrayList<>();
     ArrayList<String> xAxisValues = new ArrayList<>();
-
+//    int orientation = getResources().getConfiguration().orientation;
+    int orientation ;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        int orientation = getResources().getConfiguration().orientation;
+        orientation = getResources().getConfiguration().orientation;
         View view;
         vend = new Vendedor();
         ppto = new Presupuesto();
@@ -602,20 +603,23 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
                 int valorFormateado = val;
                 ppto.setPresupuesto(valorFormateado);
                 //p = Integer.parseInt(valorFormateado);
-                presupuestotext.setText("Pto:    $ " +  formato.format(Integer.parseInt(String.valueOf(valorFormateado))));
+//                presupuestotext.setText("Pto:    $ " +  formato.format(Integer.parseInt(String.valueOf(valorFormateado))));
                 int pendiente = ppto.getPresupuesto() - vend.getVenta() ;
 
                 String vta = String.valueOf(vend.getVenta());
                 String ppt = String.valueOf(ppto.getPresupuesto());
                 porc = (Double.parseDouble(vta) / Double.parseDouble(ppt))*100;
                 double por = porc;
-                pendientetext.setText("Pte:    $ " + formato.format(Integer.parseInt(String.valueOf(pendiente))));
+//                pendientetext.setText("Pte:    $ " + formato.format(Integer.parseInt(String.valueOf(pendiente))));
 //                /chart.setCenterText(formato.format(Double.parseDouble(String.valueOf(porc))) + "%");
 
                 if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-
+                    pendientetext.setText("Pte:    $ " + formato.format(Integer.parseInt(String.valueOf(pendiente))));
+                    presupuestotext.setText("Pto:    $ " +  formato.format(Integer.parseInt(String.valueOf(valorFormateado))));
                 } else {
                     chart.setCenterText(formato.format(Double.parseDouble(String.valueOf(porc))) + "%");
+                    pendientetext.setText(" $ " + formato.format(Integer.parseInt(String.valueOf(pendiente))));
+                    presupuestotext.setText(" $ " +  formato.format(Integer.parseInt(String.valueOf(valorFormateado))));
                 }
 
 //                porcentajeventas.setText(formato.format(Double.parseDouble(String.valueOf(porc))) + "%");
@@ -658,7 +662,12 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
                 vend.setVentas(val);
                 //v = Integer.parseInt(valorFormateado);
                 //ventastext.setText("Ventas : $ " +  valorFormateado);
-                ventastext.setText("Vtas:    $ " +  formato.format(Integer.parseInt(String.valueOf(val))));
+                if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    ventastext.setText("Vtas:    $ " +  formato.format(Integer.parseInt(String.valueOf(val))));
+                } else {
+                    ventastext.setText(" $ " +  formato.format(Integer.parseInt(String.valueOf(val))));
+                }
+//                ventastext.setText("Vtas:    $ " +  formato.format(Integer.parseInt(String.valueOf(val))));
             }catch (Exception e){
                 Toast.makeText(getContext(), "Error: "+e.getMessage(), Toast.LENGTH_LONG).show();
             }
