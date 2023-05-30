@@ -55,6 +55,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -160,6 +161,8 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
     private CustomGauge gauge2;
     private CustomGauge gauge3;
 
+    private RatingBar ratingventas;
+
     ArrayList<Entry> values = new ArrayList<>();
     ArrayList<String> xAxisValues = new ArrayList<>();
 //    int orientation = getResources().getConfiguration().orientation;
@@ -191,8 +194,16 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
             //setContentView(R.layout.activity_main);
              view = inflater.inflate(R.layout.main_fragment, container, false);
             chart =  view.findViewById(R.id.chart);
+            ratingventas = view.findViewById(R.id.ratingBar4);
             stilo_grafica_pie();
             setData(5,180);
+            try {
+                ratingventas.setMax(100);
+                ratingventas.setProgress( vend.getVenta() / ppto.getPresupuesto() * 100 );
+            }catch (Exception a){
+//                ratingventas.setProgress(10);
+            }
+
 //            gauge2 = view.findViewById(R.id.gauge2);
 //            gauge3 = view.findViewById(R.id.gauge3);
 //            cargar_gauge();
