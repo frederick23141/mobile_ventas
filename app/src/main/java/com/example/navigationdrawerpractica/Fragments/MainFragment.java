@@ -180,7 +180,7 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
              view = inflater.inflate(R.layout.main_fragmen_land, container, false);
             chartL =  view.findViewById(R.id.chart2);
             stilo_grafica_dia();
-            setDataLine(12,80000000);
+            setDataLine(12,300000000);
             gauge1 = view.findViewById(R.id.gauge1);
             gauge2 = view.findViewById(R.id.gauge2);
             gauge3 = view.findViewById(R.id.gauge3);
@@ -377,7 +377,7 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
             yAxis.enableGridDashedLine(10f, 10f, 0f);
 
             // axis range
-            yAxis.setAxisMaximum(90000000f);
+            yAxis.setAxisMaximum(300000000f);
             yAxis.setAxisMinimum(0f);
         }
 
@@ -480,8 +480,6 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
                 "#cc063e","#e83535","#fd9407","#e2d9c2","#10898b","#8fbe00","#aee239","#f9f2e7","#40c0cb","#00a8c6"
         };
 
-
-
         for (int i = 0 ; i < count; i ++){
             colors.add(Color.parseColor(Colores[i]));
         }
@@ -553,7 +551,8 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
 
             // customize legend entry
             set1.setFormLineWidth(1f);
-            set1.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
+           // set1.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
+            set1.setFormLineDashEffect(new DashPathEffect(new float[]{0f, 0f}, 0f));
             set1.setFormSize(15.f);
 
             // text size of values
@@ -592,10 +591,12 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
             LineData data = new LineData(dataSets);
             // Configurar el eje X con los valores de los días de la semana
 
+            set1.setMode(LineDataSet.Mode.STEPPED);
 
 
             // set data
             chartL.setData(data);
+
         }
     }
 
