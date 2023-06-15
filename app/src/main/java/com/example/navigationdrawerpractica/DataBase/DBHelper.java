@@ -71,6 +71,15 @@ public class DBHelper extends SQLiteOpenHelper {
                 "telefonos text  ," +
                 "dias text  ," +
                 "valor_total text  )");
+
+        /*Creacion de la tabla lista precios esta es general*/
+        db.execSQL("create table lista_precios(grupo text  NOT NULL," +
+                "subgrupo text NOT NULL," +
+                "codigo text NOT NULL," +
+                "descripcion text NOT NULL ," +
+                "distribuidor text  ," +
+                "mayorista text  ," +
+                "detallista text  )");
     }
 
 

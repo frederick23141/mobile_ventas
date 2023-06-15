@@ -33,9 +33,19 @@
                 android:title="Ruta"
                 android:iconTint="@color/item_selecionado" />
             <item
-                android:id="@+id/nav_inventario"
-                android:icon="@drawable/ic_round_manage_search_24"
-                android:title="Inventario"
+                android:id="@+id/nav_pendientes"
+                android:icon="@drawable/baseline_pending_24"
+                android:title="Pendientes"
+                android:iconTint="@color/item_selecionado" />
+            <item
+                android:id="@+id/nav_lista_precios"
+                android:icon="@drawable/baseline_format_list_price"
+                android:title="Lista de precios"
+                android:iconTint="@color/item_selecionado" />
+            <item
+                android:id="@+id/nav_stock"
+                android:icon="@drawable/baseline_store_24"
+                android:title="Stock"
                 android:iconTint="@color/item_selecionado" />
         </menu>
     </item>

@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import com.example.navigationdrawerpractica.Entidades.Persona;
 import com.example.navigationdrawerpractica.Fragments.ConfigFragment;
 import com.example.navigationdrawerpractica.Fragments.DetallePersonaFragment;
+import com.example.navigationdrawerpractica.Fragments.ListaPreciosFragment;
 import com.example.navigationdrawerpractica.Fragments.MainFragment;
 import com.example.navigationdrawerpractica.Fragments.PersonasFragment;
 import com.example.navigationdrawerpractica.Login;
@@ -39,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FragmentTransaction fragmentTransaction;
     //variable del fragment detalle
     DetallePersonaFragment detallePersonaFragment;
-
 
 
 
@@ -95,6 +95,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragmentTransaction.replace(R.id.container_fragment,new ConfigFragment());
             fragmentTransaction.commit();
             getSupportActionBar().setTitle("Clientes");
+        }
+        if(menuItem.getItemId() == R.id.nav_lista_precios){
+            fragmentManager = getSupportFragmentManager();
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container_fragment,new ListaPreciosFragment());
+            fragmentTransaction.commit();
+            getSupportActionBar().setTitle("Lista Precios");
         }
         if(menuItem.getItemId() == R.id.nav_salir){
             Intent intent= new Intent (MainActivity.this, Login.class);

@@ -48,6 +48,7 @@ public class ConfigFragment extends Fragment {
     Switch swsendrut;
     Switch swsendpedid;
     Switch swventa;
+    Switch swlistaprecio;
     Button procesar;
 
     Vendedor vendedor;
@@ -74,6 +75,7 @@ public class ConfigFragment extends Fragment {
         swsendrut = (Switch) view.findViewById(R.id.swrutasenviar);
         swsendpedid = (Switch) view.findViewById(R.id.swpedidosenviar);
         swventa = (Switch) view.findViewById(R.id.swventas);
+        swlistaprecio = (Switch) view.findViewById(R.id.swlistaprecios);
 
         procesar = (Button) view.findViewById(R.id.btnprocesar);
         vendedor = new Vendedor();
@@ -102,6 +104,62 @@ public class ConfigFragment extends Fragment {
     public void procesar_sincronizacion(){
         if(swuser.isChecked()){
             Toast.makeText(this.getContext(), "Sincronizar usuario", Toast.LENGTH_SHORT).show();
+        }
+
+        //cargar lista de precios
+        if(swlistaprecio.isChecked()){
+            Toast.makeText(this.getContext(), "Sincronizar lista precios", Toast.LENGTH_SHORT).show();
+            //CREAMOS LA CONEXION A LA BASE DE DATOS REAL, BORRAMOS LA TABLA DE USUARIOS Y AGREGAMOS ESTE NUEVO USUARIO
+            ConSQL c = new ConSQL();
+            Connection connection = c.conclass();
+            if(c != null){
+                //logear en real
+                try {
+                    DBHelper admin=new DBHelper(this.getContext(),nombre_DB,null,1);
+                    /*Abrimos la base de datos para escritura*/
+                    SQLiteDatabase db=admin.getWritableDatabase();
+                    /*creamos dos variables string
+                     * inicializamos y convertimos*/
+                    db.execSQL("delete from lista_precios");
+                    String grupo;
+                    String subgrupo;
+                    String codigo;
+                    String descripcion;
+                    String distribuidor;
+                    String mayorista;
+                    String detallista;
+
+                    String sqlstatement = "SELECT Nom_grupo,Nom_sub_grupo,codigo,descripcion,Distribuidor,Mayorista,Detallista FROM bi_lista_precios";
+
+                    PreparedStatement preparedStatement = connection.prepareStatement(sqlstatement);
+                    ResultSet set = preparedStatement.executeQuery();
+
+                    while (set.next()){
+                        Toast.makeText(this.getContext(), "insertando", Toast.LENGTH_SHORT).show();
+                        /*Creamos un objeto contentvalues y instanciamos*/
+                        ContentValues values = new ContentValues();
+                        /*capturamos valores*/
+                        values.put("grupo",set.getString("Nom_grupo"));
+                        values.put("subgrupo",set.getString("Nom_sub_grupo"));
+                        values.put("codigo",set.getString("codigo"));
+                        values.put("descripcion",set.getString("descripcion"));
+                        values.put("distribuidor",set.getString("Distribuidor"));
+                        values.put("mayorista",set.getString("Mayorista"));
+                        values.put("detallista",set.getString("Detallista"));
+                        /*llamamos al insert damos el nombre de la base de datos
+                         * y los valores*/
+                        db.insert("lista_precios",null,values);
+                        Toast.makeText(this.getContext(), "sincronizado lista precios con ", Toast.LENGTH_SHORT).show();
+                    }
+                    /*cerramos la base de datos*/
+                    db.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                //loguar en local
+                Toast.makeText(this.getContext(), "Error", Toast.LENGTH_SHORT);
+            }
         }
 
         if(swclient.isChecked()){
@@ -471,4 +529,6 @@ public class ConfigFragment extends Fragment {
             Toast.makeText(this.getContext(), "Error", Toast.LENGTH_SHORT);
         }
     }
+
+
 }

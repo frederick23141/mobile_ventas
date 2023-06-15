@@ -13,11 +13,11 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="1400dp"
-            android:layout_height="850dp"
+            android:layout_width="568dp"
+            android:layout_height="351dp"
             android:layout_gravity="center"
-            android:layout_marginTop="4dp"
-            android:src="@drawable/grupo_logo"
+            android:layout_marginTop="304dp"
+            android:src="@drawable/logo_login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +27,7 @@
             android:layout_width="687dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="244dp"
             android:background="@drawable/custom_imput"
             android:drawableEnd="@drawable/custom_email_icon"
             android:drawablePadding="20dp"
@@ -38,7 +38,7 @@
             android:textColor="@color/black"
             android:textColorHint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.504"
+            app:layout_constraintHorizontal_bias="0.486"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 

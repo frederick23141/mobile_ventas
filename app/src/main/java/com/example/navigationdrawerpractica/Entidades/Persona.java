@@ -19,12 +19,7 @@ public class Persona implements Serializable {
     private String notas;
 
 
-
-
-
     public Persona(){}
-
-
 
     public Persona(String nit, String nombre, String direccion,String telefonos,String email,String estado,String cupo,String descuento,String condicion, String lista_precios,String lista_precios2,String usado, String notas) {
         this.nombre = nombre;

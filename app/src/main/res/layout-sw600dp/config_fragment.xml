@@ -117,6 +117,26 @@
         android:text="Presupuesto"
         android:textSize="20dp"
         android:textColor="@color/black"/>
+    <Switch
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:id="@+id/swlistaprecios"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="Lista de precios"
+        android:textSize="20dp"
+        android:textColor="@color/black"/>
+    <Switch
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:id="@+id/swpendientes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:text="Pendientes"
+        android:textSize="20dp"
+        android:textColor="@color/black"/>
 
     <TextView
         android:layout_marginLeft="40dp"
