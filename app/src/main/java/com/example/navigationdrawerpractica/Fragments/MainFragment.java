@@ -2,6 +2,7 @@ package com.example.navigationdrawerpractica.Fragments;
 import static androidx.core.content.res.ResourcesCompat.getColor;
 
 import android.annotation.SuppressLint;
+import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
@@ -147,8 +148,12 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
     TextView porc_ventas;
     TextView porc_kilos;
     TextView porc_rec;
-    Presupuesto ppto;
-    Vendedor vend;
+    TextView ventas_gauge;
+    TextView porcentaje_ventas;
+
+    TextView recuado_gauge;
+    Presupuesto ppto = new Presupuesto();
+    Vendedor vend = new Vendedor();
     Double valorppto;
     int valor_venta_dia;
     int p;
@@ -177,16 +182,19 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
 
     ArrayList<DetalleVentaLinea> DetalleVentaLinea;
     AdapterDetalleVentasLinea adapterdetalleventalinea;
-
-
+//    vend = new Vendedor();
+//    ppto = new Presupuesto();
+    private Typeface tf;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         orientation = getResources().getConfiguration().orientation;
         View view;
-        vend = new Vendedor();
-        ppto = new Presupuesto();
+
+        Integer venta = vend.getVenta();
+        Integer ppto_venta = ppto.getPresupuesto();
+
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             // Cargar el diseño para la orientación horizontal
             //setContentView(R.layout.activity_main_land);
@@ -213,6 +221,21 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
             recyclerViewDetalleVentasLinea = view.findViewById(R.id.recicler_detalle_ventas);
             DetalleVentaLinea = new ArrayList<>();
             consultar_detalle();
+            //QUITAR PARA PROBAR NADA MAS
+            gauge1 = view.findViewById(R.id.gauge1);
+            gauge1.setEndValue(ppto_venta);
+            gauge1.setValue(venta);
+            ventas_gauge = view.findViewById(R.id.txt_ventas_gauge);
+            ventas_gauge.setText(String.format(Locale.getDefault(), "$ %,d   /   $ %,d", gauge1.getValue(), gauge1.getEndValue()));
+
+            gauge2 = view.findViewById(R.id.gauge2);
+            gauge2.setEndValue(500);
+            gauge2.setValue(250);
+            recuado_gauge = view.findViewById(R.id.txt_recaudo_gauge);
+            recuado_gauge.setText(String.format(Locale.getDefault(), "$ %,d   /   $ %,d", gauge2.getValue(), gauge2.getEndValue()));
+
+            porcentaje_ventas = view.findViewById(R.id.txt_porcentaje_ventas);
+
             try {
                 ratingventas.setMax(100);
                 ratingventas.setProgress( vend.getVenta() / ppto.getPresupuesto() * 100 );
@@ -236,10 +259,10 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         DBHelper admin=new DBHelper(this.getContext(),nombre_DB,null,1);
         /*Abrimos la base de datos para escritura*/
         SQLiteDatabase db=admin.getWritableDatabase();
-        Cursor cursor=db.rawQuery("SELECT * FROM ventas_detalle",null);
+        Cursor cursor=db.rawQuery("SELECT * FROM ventas_detalle order by presupuestado",null);
         while (cursor.moveToNext()){
             try {
-                DetalleVentaLinea.add(new DetalleVentaLinea(cursor.getString(0),cursor.getString(1),cursor.getInt(2),cursor.getInt(3)));
+                DetalleVentaLinea.add(new DetalleVentaLinea(cursor.getString(0),cursor.getString(1),cursor.getInt(2),cursor.getInt(3),cursor.getInt(4),cursor.getInt(5)));
             }catch (Exception e){
                 Toast.makeText(getContext(), "Error: "+e.getMessage(), Toast.LENGTH_LONG).show();
             }
@@ -304,7 +327,7 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
 
     private void stilo_grafica_pie_ventas(){
         chart.setUsePercentValues(true);
-        chart.getDescription().setEnabled(false);
+        chart.getDescription().setEnabled(true);
 
         chart.setExtraOffsets(5, 10, 5, 5);
 
@@ -336,13 +359,13 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         // chart.spin(2000, 0, 360);
 
         Legend l = chart.getLegend();
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.CENTER);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         l.setOrientation(Legend.LegendOrientation.VERTICAL);
         l.setTextColor(Color.WHITE);
-        l.setTextSize(12f);
+        l.setTextSize(11f);
         l.setDrawInside(false);
-        l.setXEntrySpace(7f);
+        l.setXEntrySpace(5f);
         l.setYEntrySpace(0f);
         l.setYOffset(0f);
 
@@ -469,18 +492,10 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         double[] datos_parties = new double[]{};
         String[] parties = new String[] {};
 
-//        final String[] parties = new String[] {
-//                "Alambre brillante", "Puas", "Alambre galvanizado", "Tornillos", "Clavos"
-//        };
-//        final String[] parties = new String[] {};
-
-//        final double[] datos_parties = new double[]{
-//          2500,3500,5000,16000,9800
-//        };
         DBHelper admin=new DBHelper(this.getContext(),nombre_DB,null,1);
         /*Abrimos la base de datos para escritura*/
         SQLiteDatabase db=admin.getWritableDatabase();
-        Cursor cursor=db.rawQuery("SELECT subgrupo, sum (valor) as valor FROM ventas_detalle group by subgrupo",null);
+        Cursor cursor=db.rawQuery("SELECT  subgrupo,sum (kilos_vta) as valor FROM ventas_detalle where valor_vta <> 0 group by subgrupo",null);
         Integer pos = 0;
         datos_parties = new double[cursor.getCount()];
         parties = new String[cursor.getCount()];
@@ -510,12 +525,13 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
 
         PieDataSet dataSet = new PieDataSet(entries, "Linea de producción");
 
+
         dataSet.setDrawIcons(false);
         chart.setCenterTextColor(Color.WHITE);
         chart.setCenterTextSize(56f);
         dataSet.setSliceSpace(3f);
         dataSet.setIconsOffset(new MPPointF(0, 40));
-        //dataSet.setSelectionShift(5f);
+//        dataSet.setSelectionShift(5f);
         dataSet.setSelectionShift(30f);
         // add a lot of colors
         ArrayList<Integer> colors = new ArrayList<>();
@@ -681,6 +697,8 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
                 Toast.makeText(getContext(), "Error: "+e.getMessage(), Toast.LENGTH_LONG).show();
             }
         }
+
+
     }
 
     public void cargar_ventas_dia(){
@@ -706,7 +724,7 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         /*Abrimos la base de datos para escritura*/
         SQLiteDatabase db=admin.getWritableDatabase();
 //        Cursor cursor=db.rawQuery("SELECT * FROM ventastot",null);
-        Cursor cursor=db.rawQuery("SELECT SUM(valor) AS vta FROM ventas_detalle",null);
+        Cursor cursor=db.rawQuery("SELECT SUM(valor_vta) AS vta FROM ventas_detalle",null);
         while (cursor.moveToNext()){
             try {
                 DecimalFormat formato = new DecimalFormat("#,###");

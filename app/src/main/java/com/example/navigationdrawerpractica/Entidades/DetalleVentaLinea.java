@@ -5,19 +5,23 @@ import java.io.Serializable;
 public class DetalleVentaLinea implements Serializable {
     private String grupo;
     private String subgrupo;
-
     private Integer kilos;
+    private Integer kilosp;
     private Integer pesos;
+    private Integer pesosp;
 
 
     public DetalleVentaLinea(){}
 
-    public DetalleVentaLinea(String grupo, String subgrupo, int kilos  , int pesos) {
+
+
+    public DetalleVentaLinea(String grupo, String subgrupo, int kilos  , int pesos, int kilosp, int pesosp) {
         this.grupo = grupo;
         this.subgrupo = subgrupo;
         this.kilos = kilos;
         this.pesos = pesos;
-
+        this.kilosp = kilosp;
+        this.pesosp = pesosp;
     }
 
     public String getGrupo() {
@@ -50,6 +54,21 @@ public class DetalleVentaLinea implements Serializable {
 
     public void setPesos(Integer pesos) {
         this.pesos = pesos;
+    }
+    public Integer getKilosp() {
+        return kilosp;
+    }
+
+    public void setKilosp(Integer kilosp) {
+        this.kilosp = kilosp;
+    }
+
+    public Integer getPesosp() {
+        return pesosp;
+    }
+
+    public void setPesosp(Integer pesosp) {
+        this.pesosp = pesosp;
     }
 
 }

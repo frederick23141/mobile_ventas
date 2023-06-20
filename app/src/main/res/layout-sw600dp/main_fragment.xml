@@ -15,7 +15,7 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             tools:layout_conversion_absoluteHeight="1dp"
             tools:layout_editor_absoluteY="10dp"
@@ -24,7 +24,119 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
+                android:layout_height="268dp">
+
+                <pl.pawelkleczkowski.customgauge.CustomGauge
+                    android:id="@+id/gauge1"
+                    android:layout_width="306dp"
+                    android:layout_height="242dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="24dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    app:gaugeEndValue="0"
+                    app:gaugePointEndColor="@color/radial_orange"
+                    app:gaugePointStartColor="@color/radial_orange"
+                    app:gaugeStartAngle="0"
+                    app:gaugeStartValue="0"
+                    app:gaugeStrokeCap="ROUND"
+                    app:gaugeStrokeColor="@color/md_grey_400"
+                    app:gaugeStrokeWidth="30dp"
+                    app:gaugeSweepAngle="360"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.126"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <pl.pawelkleczkowski.customgauge.CustomGauge
+                    android:id="@+id/gauge2"
+                    android:layout_width="306dp"
+                    android:layout_height="242dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="24dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    app:gaugeEndValue="0"
+                    app:gaugePointEndColor="@color/radial_blue"
+                    app:gaugePointStartColor="@color/radial_blue"
+                    app:gaugeStartAngle="0"
+                    app:gaugeStartValue="0"
+                    app:gaugeStrokeCap="ROUND"
+                    app:gaugeStrokeColor="@color/md_grey_400"
+                    app:gaugeStrokeWidth="30dp"
+                    app:gaugeSweepAngle="360"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.997"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txt_ventas_gauge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/gauge1"
+                    app:layout_constraintHorizontal_bias="0.491"
+                    app:layout_constraintStart_toStartOf="@+id/gauge1"
+                    app:layout_constraintTop_toTopOf="@+id/gauge1"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="52dp"
+                    android:layout_marginTop="4dp"
+                    android:text="Ventas"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/gauge1" />
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Recaudo"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="@+id/gauge2"
+                    app:layout_constraintTop_toTopOf="@+id/gauge2" />
+
+                <TextView
+                    android:id="@+id/txt_recaudo_gauge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@+id/gauge2"
+                    app:layout_constraintEnd_toEndOf="@+id/gauge2"
+                    app:layout_constraintStart_toStartOf="@+id/gauge2" />
+
+                <TextView
+                    android:id="@+id/txt_porcentaje_ventas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/poppinsbold"
+                    app:layout_constraintBottom_toBottomOf="@+id/gauge1"
+                    app:layout_constraintEnd_toEndOf="@+id/gauge1"
+                    app:layout_constraintStart_toStartOf="@+id/gauge1"
+                    app:layout_constraintTop_toTopOf="@+id/gauge1" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="658dp">
+
+
 
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/chart"
@@ -203,17 +315,11 @@
 
             </LinearLayout>
 
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/chart"
-                android:layout_width="match_parent"
-                android:layout_height="291dp"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="0dp" />
-
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/recicler_detalle_ventas"/>
+                android:id="@+id/recicler_detalle_ventas"
+                android:background="@color/white"/>
 
         </LinearLayout>
 

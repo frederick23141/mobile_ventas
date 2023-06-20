@@ -84,8 +84,17 @@ public class DBHelper extends SQLiteOpenHelper {
         /*Creacion de la tabla lista precios esta es general*/
         db.execSQL("create table ventas_detalle(grupo text  NOT NULL," +
                 "subgrupo text NOT NULL," +
-                "kilos integer NOT NULL," +
-                "valor double )");
+                "kilos_ppto integer NOT NULL," +
+                "valor_ppto integer NOT NULL," +
+                "kilos_vta integer NOT NULL," +
+                "valor_vta integer NOT NULL," +
+                "presupuestado text )");
+
+        /*Creacion de la tabla presupuesto de recaudo para cada vendedor*/
+        db.execSQL("create table presupueto_recaudo(presupuesto integer NOT NULL)");
+
+        /*Creacion de la tabla recaudo de recaudo para cada vendedor*/
+        db.execSQL("create table recaudo_vendedor(recaudo integer NOT NULL)");
     }
 
 

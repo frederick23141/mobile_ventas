@@ -16,6 +16,7 @@ import com.example.navigationdrawerpractica.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class AdapterDetalleVentasLinea extends RecyclerView.Adapter<AdapterDetalleVentasLinea.ViewHolder> implements View.OnClickListener {
@@ -53,13 +54,17 @@ public class AdapterDetalleVentasLinea extends RecyclerView.Adapter<AdapterDetal
         String subgrupo = model.get(position).getSubgrupo();
         Integer kilos = model.get(position).getKilos();
         Integer pesos = model.get(position).getPesos();
+        Integer pkilos = model.get(position).getKilosp();
+        Integer ppesos = model.get(position).getPesosp();
 
 
 
         holder.grupo.setText(grupo);
         holder.subgrupo.setText(subgrupo);
-        holder.kilos.setText(" "+kilos);
-        holder.pesos.setText( " "+ pesos );
+        holder.kilos.setText(String.format(Locale.getDefault(), " %,d" , kilos));
+        holder.pesos.setText(String.format(Locale.getDefault(), "$ %,d" , pesos));
+        holder.pkilos.setText(String.format(Locale.getDefault(), " %,d" , pkilos));
+        holder.ppesos.setText(String.format(Locale.getDefault(), "$ %,d" , ppesos));
 
 
 
@@ -88,6 +93,8 @@ public class AdapterDetalleVentasLinea extends RecyclerView.Adapter<AdapterDetal
             subgrupo = itemView.findViewById(R.id.txt_subgrupo);
             kilos   = itemView.findViewById(R.id.txt_ventas_kilos);
             pesos   = itemView.findViewById(R.id.txt_ventas);
+            pkilos   = itemView.findViewById(R.id.txt_ppto_kilos);
+            ppesos   = itemView.findViewById(R.id.txt_ppto_pesos);
         }
 
     }

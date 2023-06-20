@@ -275,6 +275,44 @@ public class ConfigFragment extends Fragment {
                          * y los valores*/
                         db.insert("presupuestoventas",null,values);
                     }
+
+                    /* consultamos el  recaudo */
+                    sqlstatement = "SELECT vendedor ,SUM (Total_rec) - sum(descuento) \n" +
+                            "                    FROM Jjv_Recaudos_consol \n" +
+                            "                        WHERE  YEAR(fecha) = YEAR(GETDATE()) and MONTH(fecha) = MONTH(GETDATE()) AND vendedor = ? \n" +
+                            "                     GROUP BY vendedor";
+                     preparedStatement = connection.prepareStatement(sqlstatement);
+                    preparedStatement.setString(1, vend);
+                     set = preparedStatement.executeQuery();
+                    while (set.next()){
+                        Toast.makeText(this.getContext(), "insertando", Toast.LENGTH_SHORT).show();
+                        /*Creamos un objeto contentvalues y instanciamos*/
+                        ContentValues values = new ContentValues();
+                        /*capturamos valores*/
+                        values.put("recaudo",set.getInt(2));
+                        /*llamamos al insert damos el nombre de la base de datos
+                         * y los valores*/
+                        db.insert("recaudo_vendedor",null,values);
+                    }
+
+                    /* consultamos el presupuesto recaudo */
+                    sqlstatement = " SELECT Ppto_total\n" +
+                            "FROM Jjv_ppto_vtas_recaudos_consol \n" +
+                            "WHERE mes =MONTH(GETDATE()) And año = YEAR(GETDATE()) and Nit = ?\n";
+                    preparedStatement = connection.prepareStatement(sqlstatement);
+                    preparedStatement.setString(1, vend);
+                    set = preparedStatement.executeQuery();
+                    while (set.next()){
+                        Toast.makeText(this.getContext(), "insertando", Toast.LENGTH_SHORT).show();
+                        /*Creamos un objeto contentvalues y instanciamos*/
+                        ContentValues values = new ContentValues();
+                        /*capturamos valores*/
+                        values.put("presupuesto",set.getInt(1));
+                        /*llamamos al insert damos el nombre de la base de datos
+                         * y los valores*/
+                        db.insert("presupueto_recaudo",null,values);
+                    }
+
                     /*cerramos la base de datos*/
                     db.close();
                 } catch (SQLException e) {
@@ -425,6 +463,7 @@ public class ConfigFragment extends Fragment {
                     /*Borramos la informacion actual*/
                     db.execSQL("delete from ventasvendedor");
                     db.execSQL("delete from ventastot");
+                    db.execSQL("delete from ventas_detalle");
 
                     /*creamos dos variables string
                      * inicializamos y convertimos*/
@@ -491,22 +530,14 @@ public class ConfigFragment extends Fragment {
                 db.execSQL("delete from ventastot");
                 db.execSQL("delete from ventas_detalle");
 
-                /*creamos dos variables string
-                 * inicializamos y convertimos*/
-                String vendedor;
-                String presupuesto;
-
-//                String sqlstatement = "SELECT      SUM(Vr_total) AS vta\n" +
-//                        "FROM            dbo.Bi_Auditoria_vtas3\n" +
-//                        "WHERE        (vendedor = ? ) AND (Mes = MONTH(GETDATE())) AND (Año = YEAR(GETDATE()))\n" +
-//                        "GROUP BY vendedor\n" +
-//                        "ORDER BY vendedor" ;
-
-                String sqlstatement = "select grupo,subgrupo,SUM(kilos)as kilos,SUM(Vr_total) as vr_total\n" +
-                        "from Bi_Auditoria_vtas3\n" +
-                        "where  vendedor = ? and Año = YEAR(GETDATE()) and Mes = MONTH(GETDATE())\n" +
-                        "group by Grupo,Subgrupo\n" +
-                        "order by Subgrupo" ;
+                String sqlstatement = "select   nom_grupo,nom_subgrupo,sum(kilosppto)as kilosppto ,sum(vrppto) as vrppto ,sum (kgs_vtas) as kgs_vtas , sum(vr_vtas) as vr_vtas,CASE\n" +
+                        "           WHEN sum(kilosppto) = 0 THEN 'No presupuestado'\n" +
+                        "           WHEN sum(kilosppto) <> 0 THEN 'Presupuestado'\n" +
+                        "       END AS vta_presupuestada\n" +
+                        "from bi_presupuesto_y_ventas_vendedor\n" +
+                        "where vendedor = ? and ano = YEAR(GETDATE()) and mes = MONTH(GETDATE()) and ( kilosppto <> 0 or kgs_vtas <> 0)\n" +
+                        "group by nom_grupo,nom_subgrupo\n" +
+                        "order by vta_presupuestada" ;
 
                 PreparedStatement preparedStatement = connection.prepareStatement(sqlstatement);
                 preparedStatement.setString(1, vend);
@@ -521,8 +552,11 @@ public class ConfigFragment extends Fragment {
 //                    values.put("ventas",set.getDouble(1));
                     values.put("grupo",set.getString(1));
                     values.put("subgrupo",set.getString(2));
-                    values.put("kilos",set.getInt(3));
-                    values.put("valor",set.getDouble(4));
+                    values.put("kilos_ppto",set.getInt(3));
+                    values.put("valor_ppto",set.getInt(4));
+                    values.put("kilos_vta",set.getInt(5));
+                    values.put("valor_vta",set.getDouble(6));
+                    values.put("presupuestado",set.getString(7));
 
                     /*llamamos al insert damos el nombre de la base de datos
                      * y los valores*/
