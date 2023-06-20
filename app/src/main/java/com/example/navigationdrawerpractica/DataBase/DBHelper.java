@@ -80,6 +80,12 @@ public class DBHelper extends SQLiteOpenHelper {
                 "distribuidor text  ," +
                 "mayorista text  ," +
                 "detallista text  )");
+
+        /*Creacion de la tabla lista precios esta es general*/
+        db.execSQL("create table ventas_detalle(grupo text  NOT NULL," +
+                "subgrupo text NOT NULL," +
+                "kilos integer NOT NULL," +
+                "valor double )");
     }
 
 

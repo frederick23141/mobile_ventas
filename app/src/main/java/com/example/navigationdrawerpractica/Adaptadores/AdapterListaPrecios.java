@@ -62,9 +62,9 @@ public class AdapterListaPrecios extends RecyclerView.Adapter<AdapterListaPrecio
        // holder.subgrupo.setText(subgrupo);
         holder.codigo.setText(codigo);
         holder.descripcion.setText(descripcion);
-        holder.distribuidor.setText(distribuidor);
-        holder.mayorista.setText(mayorista);
-        holder.detallista.setText(detallista);
+        holder.distribuidor.setText( "$ " + distribuidor);
+        holder.mayorista.setText("$ " + mayorista);
+        holder.detallista.setText("$ " + detallista);
 
 
     }
@@ -76,6 +76,7 @@ public class AdapterListaPrecios extends RecyclerView.Adapter<AdapterListaPrecio
            /* model.clear();
             model.addAll(Original);*/
             model = Original;
+            model.addAll(Original);
         }else{
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                 List<ListaPrecio> collection = model.stream().

@@ -20,16 +20,16 @@
             tools:layout_conversion_absoluteHeight="1dp"
             tools:layout_editor_absoluteY="10dp"
             tools:layout_editor_absoluteX="10dp"
-            tools:layout_conversion_absoluteWidth="780dp" >
+            tools:layout_conversion_absoluteWidth="900dp" >
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="658dp">
 
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/chart"
-                    android:layout_width="779dp"
-                    android:layout_height="676dp"
+                    android:layout_width="714dp"
+                    android:layout_height="655dp"
                     tools:layout_editor_absoluteX="0dp"
                     tools:layout_editor_absoluteY="0dp" />
 
@@ -209,6 +209,11 @@
                 android:layout_height="291dp"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="0dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/recicler_detalle_ventas"/>
 
         </LinearLayout>
 

@@ -489,17 +489,24 @@ public class ConfigFragment extends Fragment {
                 SQLiteDatabase db=admin.getWritableDatabase();
                 /*Borramos la informacion actual*/
                 db.execSQL("delete from ventastot");
+                db.execSQL("delete from ventas_detalle");
 
                 /*creamos dos variables string
                  * inicializamos y convertimos*/
                 String vendedor;
                 String presupuesto;
 
-                String sqlstatement = "SELECT      SUM(Vr_total) AS vta\n" +
-                        "FROM            dbo.Bi_Auditoria_vtas3\n" +
-                        "WHERE        (vendedor = ? ) AND (Mes = MONTH(GETDATE())) AND (Año = YEAR(GETDATE()))\n" +
-                        "GROUP BY vendedor\n" +
-                        "ORDER BY vendedor" ;
+//                String sqlstatement = "SELECT      SUM(Vr_total) AS vta\n" +
+//                        "FROM            dbo.Bi_Auditoria_vtas3\n" +
+//                        "WHERE        (vendedor = ? ) AND (Mes = MONTH(GETDATE())) AND (Año = YEAR(GETDATE()))\n" +
+//                        "GROUP BY vendedor\n" +
+//                        "ORDER BY vendedor" ;
+
+                String sqlstatement = "select grupo,subgrupo,SUM(kilos)as kilos,SUM(Vr_total) as vr_total\n" +
+                        "from Bi_Auditoria_vtas3\n" +
+                        "where  vendedor = ? and Año = YEAR(GETDATE()) and Mes = MONTH(GETDATE())\n" +
+                        "group by Grupo,Subgrupo\n" +
+                        "order by Subgrupo" ;
 
                 PreparedStatement preparedStatement = connection.prepareStatement(sqlstatement);
                 preparedStatement.setString(1, vend);
@@ -510,13 +517,17 @@ public class ConfigFragment extends Fragment {
                     /*Creamos un objeto contentvalues y instanciamos*/
                     ContentValues values = new ContentValues();
                     /*capturamos valores*/
-                    values.put("vendedor",vend.toString());
-                    values.put("ventas",set.getDouble(1));
-
+//                    values.put("vendedor",vend.toString());
+//                    values.put("ventas",set.getDouble(1));
+                    values.put("grupo",set.getString(1));
+                    values.put("subgrupo",set.getString(2));
+                    values.put("kilos",set.getInt(3));
+                    values.put("valor",set.getDouble(4));
 
                     /*llamamos al insert damos el nombre de la base de datos
                      * y los valores*/
-                    db.insert("ventastot",null,values);
+//                    db.insert("ventastot",null,values);
+                    db.insert("ventas_detalle",null,values);
                 }
 
                 /*cerramos la base de datos*/
