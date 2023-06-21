@@ -8,50 +8,44 @@
     app:cardCornerRadius="15dp"
     app:cardElevation="2dp"
     app:cardUseCompatPadding="true"
+    android:layout_marginLeft="50dp"
+    android:layout_marginRight="50dp"
 >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
-
-        <TextView
-            android:id="@+id/txt_grupo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:text="Grupo"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toEndOf="@+id/imageView5"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="42dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/baseline_stars_24" />
+        android:layout_height="60dp"
+        >
 
         <TextView
             android:id="@+id/txt_subgrupo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="subgrupo"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="4dp"
+            android:text=" "
             android:textColor="@color/black"
-            app:layout_constraintStart_toEndOf="@+id/imageView5"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_grupo" />
+
+        <TextView
+            android:id="@+id/txt_grupo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:text="Grupo"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txt_ppto_pesos"
             android:layout_width="170dp"
             android:layout_height="17dp"
             android:layout_marginBottom="8dp"
-            android:text="TextView"
+            android:text=" "
             android:textAlignment="textStart"
             android:textColor="@color/md_red_500"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -97,7 +91,7 @@
             android:layout_height="18dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="4dp"
-            android:text="TextView"
+            android:text=" "
             android:textColor="@color/md_red_500"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -135,14 +129,7 @@
             app:layout_constraintEnd_toStartOf="@+id/txt_ventas_kilos"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/img_estado_ppto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/baseline_check_24"
-            tools:layout_editor_absoluteX="397dp" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,18 +9,21 @@
     tools:ignore="MissingDefaultResource">
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/scrollView2">
+        android:id="@+id/scrollView2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginRight="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="10dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
             tools:layout_conversion_absoluteHeight="1dp"
-            tools:layout_editor_absoluteY="10dp"
+            tools:layout_conversion_absoluteWidth="900dp"
             tools:layout_editor_absoluteX="10dp"
-            tools:layout_conversion_absoluteWidth="900dp" >
+            tools:layout_editor_absoluteY="10dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -123,9 +126,9 @@
                     android:id="@+id/txt_porcentaje_ventas"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppinsbold"
                     android:text="TextView"
                     android:textColor="@color/white"
-                    android:fontFamily="@font/poppinsbold"
                     app:layout_constraintBottom_toBottomOf="@+id/gauge1"
                     app:layout_constraintEnd_toEndOf="@+id/gauge1"
                     app:layout_constraintStart_toStartOf="@+id/gauge1"
@@ -137,20 +140,31 @@
                 android:layout_height="658dp">
 
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/reclicler_grupo"
+                    android:layout_width="267dp"
+                    android:layout_height="501dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/chart"
-                    android:layout_width="714dp"
-                    android:layout_height="655dp"
-                    tools:layout_editor_absoluteX="0dp"
-                    tools:layout_editor_absoluteY="0dp" />
+                    android:layout_width="484dp"
+                    android:layout_height="614dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/reclicler_grupo"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
-                android:layout_width="716dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
                 android:orientation="vertical">
 
 
@@ -160,6 +174,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
                     app:cardCornerRadius="8dp"
+
                     app:cardElevation="20dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -315,14 +330,14 @@
 
             </LinearLayout>
 
+
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recicler_detalle_ventas"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/recicler_detalle_ventas"
-                android:background="@color/white"/>
+                android:layout_marginTop="30dp"/>
 
         </LinearLayout>
-
 
 
     </ScrollView>

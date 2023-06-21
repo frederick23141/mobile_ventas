@@ -16,8 +16,10 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.navigationdrawerpractica.Adaptadores.AdapterDetalleVentasLinea;
+import com.example.navigationdrawerpractica.Adaptadores.AdapterDetalleVentasLineaGrupo;
 import com.example.navigationdrawerpractica.Adaptadores.AdapterPersonas;
 import com.example.navigationdrawerpractica.Entidades.DetalleVentaLinea;
+import com.example.navigationdrawerpractica.Entidades.DetalleVentaLineaGrupo;
 import com.example.navigationdrawerpractica.custom.MyMarkerView;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
@@ -179,9 +181,13 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
 //    int orientation = getResources().getConfiguration().orientation;
     int orientation ;
     RecyclerView recyclerViewDetalleVentasLinea;
+    RecyclerView recyclerViewgrupodet;
 
     ArrayList<DetalleVentaLinea> DetalleVentaLinea;
+    ArrayList<DetalleVentaLineaGrupo> DetalleVentaLineagrupo;
     AdapterDetalleVentasLinea adapterdetalleventalinea;
+    AdapterDetalleVentasLineaGrupo adapterdetalleventalineagrupo;
+
 //    vend = new Vendedor();
 //    ppto = new Presupuesto();
     private Typeface tf;
@@ -217,16 +223,21 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
             chart =  view.findViewById(R.id.chart);
             ratingventas = view.findViewById(R.id.ratingBar4);
             stilo_grafica_pie_ventas();
-            setDataVEntas(5,180);
+            setDataVEntas(5,180, "");
             recyclerViewDetalleVentasLinea = view.findViewById(R.id.recicler_detalle_ventas);
+            recyclerViewgrupodet = view.findViewById(R.id.reclicler_grupo);
             DetalleVentaLinea = new ArrayList<>();
+            DetalleVentaLineagrupo = new ArrayList<>();
             consultar_detalle();
             //QUITAR PARA PROBAR NADA MAS
+//            gauge1 = view.findViewById(R.id.gauge1);
+//            gauge1.setEndValue(ppto_venta);
+//            gauge1.setValue(venta);
+//            ventas_gauge = view.findViewById(R.id.txt_ventas_gauge);
+//            ventas_gauge.setText(String.format(Locale.getDefault(), "$ %,d   /   $ %,d", gauge1.getValue(), gauge1.getEndValue()));
+
             gauge1 = view.findViewById(R.id.gauge1);
-            gauge1.setEndValue(ppto_venta);
-            gauge1.setValue(venta);
             ventas_gauge = view.findViewById(R.id.txt_ventas_gauge);
-            ventas_gauge.setText(String.format(Locale.getDefault(), "$ %,d   /   $ %,d", gauge1.getValue(), gauge1.getEndValue()));
 
             gauge2 = view.findViewById(R.id.gauge2);
             gauge2.setEndValue(500);
@@ -251,7 +262,17 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         porcentajeventas = view.findViewById(R.id.txtporcentajeventa);
         consultarventas();
         consultarpresupuesto();
+        cargar_ventas_gauge();
         return view;
+    }
+
+
+    public void cargar_ventas_gauge(){
+
+        gauge1.setEndValue(ppto.getPresupuesto());
+        gauge1.setValue(vend.getVenta());
+        ventas_gauge.setText(String.format(Locale.getDefault(), "$ %,d   /   $ %,d", gauge1.getValue(), gauge1.getEndValue()));
+        gauge1.invalidate();
     }
 
     public void consultar_detalle(){
@@ -268,6 +289,16 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
             }
 
         }
+        SQLiteDatabase dbs=admin.getWritableDatabase();
+         cursor=dbs.rawQuery("SELECT distinct grupo FROM ventas_detalle",null);
+        while (cursor.moveToNext()){
+            try {
+                DetalleVentaLineagrupo.add(new DetalleVentaLineaGrupo(cursor.getString(0)));
+            }catch (Exception e){
+                Toast.makeText(getContext(), "Error: "+e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+
+        }
         mostrarData();
     }
 
@@ -277,12 +308,31 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         // adapterPersonas = new AdapterPersonas(getContext(), listainformacion);
         recyclerViewDetalleVentasLinea.setAdapter(adapterdetalleventalinea);
 
+
+        recyclerViewgrupodet.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapterdetalleventalineagrupo = new AdapterDetalleVentasLineaGrupo(getContext(), DetalleVentaLineagrupo);
+        // adapterPersonas = new AdapterPersonas(getContext(), listainformacion);
+        recyclerViewgrupodet.setAdapter(adapterdetalleventalineagrupo);
+
+
         adapterdetalleventalinea.setOnclickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String nombre = DetalleVentaLinea.get(recyclerViewDetalleVentasLinea.getChildAdapterPosition(view)).getGrupo();
+
                 //txtnombre.s(nombre);
                 Toast.makeText(getContext(), "Seleccionó: "+DetalleVentaLinea.get(recyclerViewDetalleVentasLinea.getChildAdapterPosition(view)).getGrupo(), Toast.LENGTH_SHORT).show();
+                //enviar mediante la interface el objeto seleccionado al detalle
+                //se envia el objeto completo
+            }
+        });
+        adapterdetalleventalineagrupo.setOnclickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String nombre = DetalleVentaLineagrupo.get(recyclerViewgrupodet.getChildAdapterPosition(view)).getGrupo();
+                setDataVEntas(0,0,nombre);
+                //txtnombre.s(nombre);
+                Toast.makeText(getContext(), "Seleccionó: "+DetalleVentaLineagrupo.get(recyclerViewgrupodet.getChildAdapterPosition(view)).getGrupo(), Toast.LENGTH_SHORT).show();
                 //enviar mediante la interface el objeto seleccionado al detalle
                 //se envia el objeto completo
             }
@@ -326,8 +376,8 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
     }
 
     private void stilo_grafica_pie_ventas(){
-        chart.setUsePercentValues(true);
-        chart.getDescription().setEnabled(true);
+        chart.setUsePercentValues(false);
+        chart.getDescription().setEnabled(false);
 
         chart.setExtraOffsets(5, 10, 5, 5);
 
@@ -359,9 +409,9 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         // chart.spin(2000, 0, 360);
 
         Legend l = chart.getLegend();
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.CENTER);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
-        l.setOrientation(Legend.LegendOrientation.VERTICAL);
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
         l.setTextColor(Color.WHITE);
         l.setTextSize(11f);
         l.setDrawInside(false);
@@ -487,7 +537,7 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         // draw legend entries as lines
         l.setForm(Legend.LegendForm.CIRCLE);
     }
-    private void setDataVEntas(int count, float range) {
+    private void setDataVEntas(int count, float range,String criterio) {
         ArrayList<PieEntry> entries = new ArrayList<>();
         double[] datos_parties = new double[]{};
         String[] parties = new String[] {};
@@ -495,7 +545,16 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         DBHelper admin=new DBHelper(this.getContext(),nombre_DB,null,1);
         /*Abrimos la base de datos para escritura*/
         SQLiteDatabase db=admin.getWritableDatabase();
-        Cursor cursor=db.rawQuery("SELECT  subgrupo,sum (kilos_vta) as valor FROM ventas_detalle where valor_vta <> 0 group by subgrupo",null);
+        Cursor cursor;
+        if (criterio.equals(""))  {
+             cursor=db.rawQuery("SELECT  subgrupo,sum (kilos_vta) as valor FROM ventas_detalle where valor_vta <> 0 group by subgrupo",null);
+        }else{
+             cursor=db.rawQuery("SELECT  subgrupo,sum (kilos_vta) as valor FROM ventas_detalle where grupo ='"+criterio+"' and valor_vta <> 0 group by subgrupo",null);
+        }
+
+//        Cursor cursor=db.rawQuery("SELECT  subgrupo,sum (kilos_vta) as valor FROM ventas_detalle where valor_vta <> 0 group by subgrupo",null);
+
+
         Integer pos = 0;
         datos_parties = new double[cursor.getCount()];
         parties = new String[cursor.getCount()];
@@ -522,10 +581,7 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
             }
         }
 
-
-        PieDataSet dataSet = new PieDataSet(entries, "Linea de producción");
-
-
+        PieDataSet dataSet = new PieDataSet(entries,"");
         dataSet.setDrawIcons(false);
         chart.setCenterTextColor(Color.WHITE);
         chart.setCenterTextSize(56f);
@@ -543,6 +599,7 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         for (int i = 0 ; i < count; i ++){
             colors.add(Color.parseColor(Colores[i]));
         }
+
         colors.add(ColorTemplate.getHoloBlue());
         dataSet.setColors(colors);
         //dataSet.setSelectionShift(0f);
@@ -682,7 +739,7 @@ public class MainFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
                 double por = porc;
 //                pendientetext.setText("Pte:    $ " + formato.format(Integer.parseInt(String.valueOf(pendiente))));
 //                /chart.setCenterText(formato.format(Double.parseDouble(String.valueOf(porc))) + "%");
-
+                porcentaje_ventas.setText(formato.format(porc)  + "%");
                 if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     pendientetext.setText("Pte:    $ " + formato.format(Integer.parseInt(String.valueOf(pendiente))));
                     presupuestotext.setText("Pto:    $ " +  formato.format(Integer.parseInt(String.valueOf(valorFormateado))));
